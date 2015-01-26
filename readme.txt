@@ -30,7 +30,7 @@ basically it removes all theme modifications that are registered via Customizer 
 
 == Screenshots ==
 
-1. Reset along with Save button.
+1. Reset along with Save button in WordPress Customizer panel.
 
 == Changelog ==
 
