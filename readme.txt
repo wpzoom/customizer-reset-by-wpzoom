@@ -17,6 +17,10 @@ Reset theme customizations made via WordPress Customizer.
 This should work with all themes and plugins that uses theme_mod settings type for storing modifications,
 basically it removes all theme modifications that are registered via Customizer API.
 
+= Get Involved =
+
+Looking to contribute code to this plugin? Go ahead and [fork the repository over at GitHub](https://github.com/wpzoom/customizer-reset).
+
 == Frequently Asked Questions ==
 
 = Why it didn't reset something? =
