@@ -38,5 +38,8 @@ Looking to contribute code to this plugin? Go ahead and [fork the repository ove
 
 == Changelog ==
 
+= 1.0.1 =
+* Minor cleanup
+
 = 1.0 =
 * Initial Release
