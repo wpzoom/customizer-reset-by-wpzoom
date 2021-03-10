@@ -72,7 +72,14 @@ if ( ! class_exists( 'ZOOM_Customizer_Reset' ) ) {
 		}
 
 		public function reset_customizer() {
-			$settings = $this->wp_customize->settings();
+			/**
+			 * Filter the settings that will be removed.
+			 * 
+			 * @param array $settings Theme modifications.
+			 * @return array
+			 * @since 1.1.0
+			 */
+			$settings = apply_filters( 'customizer_reset_settings', $this->wp_customize->settings() );
 
 			// remove theme_mod settings registered in customizer
 			foreach ( $settings as $setting ) {
