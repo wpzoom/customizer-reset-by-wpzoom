@@ -57,9 +57,8 @@ final class ZOOM_Customizer_Reset {
 	 * @since 1.0.0
 	 */
 	private function __construct() {
-		add_action( 'customize_controls_print_scripts', array( $this, 'customize_controls_print_scripts' ) );
-		add_action( 'wp_ajax_customizer_reset', array( $this, 'ajax_customizer_reset' ) );
-		add_action( 'customize_register', array( $this, 'customize_register' ) );
+		add_action( 'customize_controls_print_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'wp_ajax_customizer_reset', array( $this, 'remove_theme_modifications' ) );
 	}
 
 	/**
@@ -68,8 +67,14 @@ final class ZOOM_Customizer_Reset {
 	 * @return void
 	 * @since 1.0.0
 	 */
-	public function customize_controls_print_scripts() {
-		wp_enqueue_script( 'zoom-customizer-reset', plugins_url( '/js/customizer-reset.js', __FILE__ ), array( 'jquery' ), '20150120', true );
+	public function enqueue_scripts() {
+		wp_enqueue_script(
+			'zoom-customizer-reset',
+			plugins_url( '/js/customizer-reset.js', __FILE__ ),
+			array( 'jquery' ),
+			'20150120',
+			false
+		);
 		wp_localize_script(
 			'zoom-customizer-reset',
 			'_ZoomCustomizerReset',
@@ -84,43 +89,24 @@ final class ZOOM_Customizer_Reset {
 	}
 
 	/**
-	 * Store a reference to `WP_Customize_Manager` instance
-	 *
-	 * @param object $wp_customize Customizer object.
-	 * @return void
-	 * @since 1.0.0
-	 */
-	public function customize_register( $wp_customize ) {
-		$this->wp_customize = $wp_customize;
-	}
-
-	/**
 	 * Run methods if nonce and not in preview mode
 	 *
 	 * @return void
 	 * @since 1.0.0
 	 */
-	public function ajax_customizer_reset() {
-		if ( ! $this->wp_customize->is_preview() ) {
+	public function remove_theme_modifications() {
+		global $wp_customize;
+
+		// Bail early if we are in preview mode.
+		if ( ! $wp_customize->is_preview() ) {
 			wp_send_json_error( 'not_preview' );
 		}
 
+		// Bail early if nonce is invalid.
 		if ( ! check_ajax_referer( 'customizer-reset', 'nonce', false ) ) {
 			wp_send_json_error( 'invalid_nonce' );
 		}
 
-		$this->reset_customizer();
-
-		wp_send_json_success();
-	}
-
-	/**
-	 * Loop through settings found in the Customizer and remove them from database.
-	 *
-	 * @return void
-	 * @since 1.0.0
-	 */
-	public function reset_customizer() {
 		/**
 		 * Filter the settings that will be removed.
 		 *
@@ -128,7 +114,7 @@ final class ZOOM_Customizer_Reset {
 		 * @return array
 		 * @since 1.1.0
 		 */
-		$settings = apply_filters( 'customizer_reset_settings', $this->wp_customize->settings() );
+		$settings = apply_filters( 'customizer_reset_settings', $wp_customize->settings() );
 
 		if ( ! empty( $settings ) ) {
 			foreach ( $settings as $setting ) {
@@ -137,7 +123,10 @@ final class ZOOM_Customizer_Reset {
 				}
 			}
 		}
+
+		wp_send_json_success();
 	}
+
 }
 
 ZOOM_Customizer_Reset::get_instance();
