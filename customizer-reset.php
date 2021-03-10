@@ -12,121 +12,72 @@
  * @package ZOOM_Customizer_Reset
  */
 
+namespace ZOOM_Customizer_Reset;
+
+add_action( 'customize_controls_print_scripts', __NAMESPACE__ . '\enqueue_scripts' );
 /**
- * Customizer Reset class
+ * Enqueue scripts and localizations.
  *
+ * @return void
  * @since 1.0.0
  */
-final class ZOOM_Customizer_Reset {
-	/**
-	 * Instance of plugin
-	 *
-	 * @var ZOOM_Customizer_Reset
-	 * @access private
-	 * @since 1.0.0
-	 */
-	private static $instance = null;
-
-	/**
-	 * Customizer object
-	 *
-	 * @var WP_Customize_Manager
-	 * @access private
-	 * @since 1.0.0
-	 */
-	private $wp_customize;
-
-	/**
-	 * Invoke Singleton instance of plugin.
-	 *
-	 * @return object
-	 * @since 1.0.0
-	 */
-	public static function get_instance() {
-		if ( null === self::$instance ) {
-			self::$instance = new self();
-		}
-
-		return self::$instance;
-	}
-
-	/**
-	 * Initialize actions and filters.
-	 *
-	 * @return void
-	 * @since 1.0.0
-	 */
-	private function __construct() {
-		add_action( 'customize_controls_print_scripts', array( $this, 'enqueue_scripts' ) );
-		add_action( 'wp_ajax_customizer_reset', array( $this, 'remove_theme_modifications' ) );
-	}
-
-	/**
-	 * Enqueue scripts and localizations.
-	 *
-	 * @return void
-	 * @since 1.0.0
-	 */
-	public function enqueue_scripts() {
-		wp_enqueue_script(
-			'zoom-customizer-reset',
-			plugins_url( '/js/customizer-reset.js', __FILE__ ),
-			array( 'jquery' ),
-			'20150120',
-			false
-		);
-		wp_localize_script(
-			'zoom-customizer-reset',
-			'_ZoomCustomizerReset',
-			array(
-				'reset'   => __( 'Reset', 'customizer-reset' ),
-				'confirm' => __( "Attention!\n\nThis will remove all customizations ever made via customizer to this theme.\n\nThis action is irreversible.", 'customizer-reset' ),
-				'nonce'   => array(
-					'reset' => wp_create_nonce( 'customizer-reset' ),
-				),
-			)
-		);
-	}
-
-	/**
-	 * Run methods if nonce and not in preview mode
-	 *
-	 * @return void
-	 * @since 1.0.0
-	 */
-	public function remove_theme_modifications() {
-		global $wp_customize;
-
-		// Bail early if we are in preview mode.
-		if ( ! $wp_customize->is_preview() ) {
-			wp_send_json_error( 'not_preview' );
-		}
-
-		// Bail early if nonce is invalid.
-		if ( ! check_ajax_referer( 'customizer-reset', 'nonce', false ) ) {
-			wp_send_json_error( 'invalid_nonce' );
-		}
-
-		/**
-		 * Filter the settings that will be removed.
-		 *
-		 * @param array $settings Theme modifications.
-		 * @return array
-		 * @since 1.1.0
-		 */
-		$settings = apply_filters( 'customizer_reset_settings', $wp_customize->settings() );
-
-		if ( ! empty( $settings ) ) {
-			foreach ( $settings as $setting ) {
-				if ( 'theme_mod' === $setting->type ) {
-					remove_theme_mod( $setting->id );
-				}
-			}
-		}
-
-		wp_send_json_success();
-	}
-
+function enqueue_scripts() {
+	wp_enqueue_script(
+		'zoom-customizer-reset',
+		plugins_url( '/js/customizer-reset.js', __FILE__ ),
+		array( 'jquery' ),
+		'20150120',
+		false
+	);
+	wp_localize_script(
+		'zoom-customizer-reset',
+		'_ZoomCustomizerReset',
+		array(
+			'reset'   => __( 'Reset', 'customizer-reset' ),
+			'confirm' => __( "Attention!\n\nThis will remove all customizations ever made via customizer to this theme.\n\nThis action is irreversible.", 'customizer-reset' ),
+			'nonce'   => array(
+				'reset' => wp_create_nonce( 'customizer-reset' ),
+			),
+		)
+	);
 }
 
-ZOOM_Customizer_Reset::get_instance();
+add_action( 'wp_ajax_customizer_reset', __NAMESPACE__ . '\remove_theme_modifications' );
+/**
+ * Run methods if nonce and not in preview mode
+ *
+ * @return void
+ * @since 1.0.0
+ */
+function remove_theme_modifications() {
+	global $wp_customize;
+
+	// Bail early if we are in preview mode.
+	if ( ! $wp_customize->is_preview() ) {
+		wp_send_json_error( 'not_preview' );
+	}
+
+	// Bail early if nonce is invalid.
+	if ( ! check_ajax_referer( 'customizer-reset', 'nonce', false ) ) {
+		wp_send_json_error( 'invalid_nonce' );
+	}
+
+	/**
+	 * Filter the settings that will be removed.
+	 *
+	 * @param array $settings Theme modifications.
+	 * @return array
+	 * @since 1.1.0
+	 */
+	$settings = apply_filters( 'customizer_reset_settings', $wp_customize->settings() );
+
+	if ( ! empty( $settings ) ) {
+		foreach ( $settings as $setting ) {
+			if ( 'theme_mod' === $setting->type ) {
+				remove_theme_mod( $setting->id );
+			}
+		}
+	}
+
+	wp_send_json_success();
+}
