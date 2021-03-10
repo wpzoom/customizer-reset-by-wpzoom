@@ -1,0 +1,9 @@
+includes:
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+parameters:
+    level: max
+    paths:
+        - tracking-code-for-google-analytics.php
+        - inc/admin.php
+        - inc/public.php
+    checkMissingIterableValueType: false
