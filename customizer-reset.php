@@ -75,7 +75,7 @@ final class ZOOM_Customizer_Reset {
 			'_ZoomCustomizerReset',
 			array(
 				'reset'   => __( 'Reset', 'customizer-reset' ),
-				'confirm' => __( "Attention! This will remove all customizations ever made via customizer to this theme!\n\nThis action is irreversible!", 'customizer-reset' ),
+				'confirm' => __( "Attention!\n\nThis will remove all customizations ever made via customizer to this theme.\n\nThis action is irreversible.", 'customizer-reset' ),
 				'nonce'   => array(
 					'reset' => wp_create_nonce( 'customizer-reset' ),
 				),
