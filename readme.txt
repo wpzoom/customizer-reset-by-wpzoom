@@ -1,12 +1,12 @@
-=== Plugin Name ===
-Contributors: WPZOOM, nvartolomei
+=== Customizer Reset ===
+Contributors: WPZOOM, nvartolomei, clytoncollie
 Donate link: http://wpzoom.com/
 Tags: customize, customizer, reset
 Requires at least: 3.4
-Tested up to: 4.2
+Tested up to: 5.7
 Stable tag: trunk
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License: GPLv3 or later
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Reset theme customizations made via WordPress Customizer.
 
