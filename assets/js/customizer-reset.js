@@ -2,8 +2,6 @@
 
 jQuery(function ($) {
     var $container = $('#customize-header-actions');
-
-
     var $button = $('<input type="submit" name="zoom-reset" id="zoom-reset" class="button-secondary button">')
         .attr('value', _ZoomCustomizerReset.reset)
         .css({
@@ -11,19 +9,18 @@ jQuery(function ($) {
             'margin-right': '10px',
             'margin-top': '9px'
         });
-
     $button.on('click', function (event) {
         event.preventDefault();
-
+        
         var data = {
             wp_customize: 'on',
             action: 'customizer_reset',
             nonce: _ZoomCustomizerReset.nonce.reset
         };
 
-        var r = confirm(_ZoomCustomizerReset.confirm);
+        var response = confirm(_ZoomCustomizerReset.confirm);
 
-        if (!r) return;
+        if (!response) return;
 
         $button.attr('disabled', 'disabled');
 
@@ -32,6 +29,5 @@ jQuery(function ($) {
             location.reload();
         });
     });
-
     $container.append($button);
 });

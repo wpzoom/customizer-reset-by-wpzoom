@@ -24,7 +24,7 @@ add_action( 'customize_controls_print_scripts', __NAMESPACE__ . '\enqueue_script
 function enqueue_scripts() {
 	wp_enqueue_script(
 		'zoom-customizer-reset',
-		plugins_url( '/js/customizer-reset.js', __FILE__ ),
+		plugins_url( '/assets/js/customizer-reset.js', __FILE__ ),
 		array( 'jquery' ),
 		'20150120',
 		false
