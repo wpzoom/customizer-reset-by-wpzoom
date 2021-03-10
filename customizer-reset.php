@@ -39,13 +39,17 @@ if ( ! class_exists( 'ZOOM_Customizer_Reset' ) ) {
 
 		public function customize_controls_print_scripts() {
 			wp_enqueue_script( 'zoom-customizer-reset', plugins_url( '/js/customizer-reset.js', __FILE__ ), array( 'jquery' ), '20150120' );
-			wp_localize_script( 'zoom-customizer-reset', '_ZoomCustomizerReset', array(
-				'reset'   => __( 'Reset', 'customizer-reset' ),
-				'confirm' => __( "Attention! This will remove all customizations ever made via customizer to this theme!\n\nThis action is irreversible!", 'customizer-reset' ),
-				'nonce'   => array(
-					'reset' => wp_create_nonce( 'customizer-reset' ),
+			wp_localize_script(
+				'zoom-customizer-reset',
+				'_ZoomCustomizerReset',
+				array(
+					'reset'   => __( 'Reset', 'customizer-reset' ),
+					'confirm' => __( "Attention! This will remove all customizations ever made via customizer to this theme!\n\nThis action is irreversible!", 'customizer-reset' ),
+					'nonce'   => array(
+						'reset' => wp_create_nonce( 'customizer-reset' ),
+					),
 				)
-			) );
+			);
 		}
 
 		/**
@@ -74,7 +78,7 @@ if ( ! class_exists( 'ZOOM_Customizer_Reset' ) ) {
 		public function reset_customizer() {
 			/**
 			 * Filter the settings that will be removed.
-			 * 
+			 *
 			 * @param array $settings Theme modifications.
 			 * @return array
 			 * @since 1.1.0
