@@ -2,7 +2,7 @@
     "name": "wpzoom/customizer-reset",
     "description": "Reset theme customizations (theme_mods) made via WordPress Customizer",
     "type": "wordpress-plugin",
-    "license": "GPL-3.0-or-later",
+    "license": "GPL-2.0-or-later",
     "authors": [
         {
             "name": "WPZOOM",
