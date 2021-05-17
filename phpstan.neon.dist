@@ -1,0 +1,7 @@
+includes:
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+parameters:
+    level: max
+    paths:
+        - customizer-reset.php
+    checkMissingIterableValueType: false
