@@ -50,7 +50,7 @@ add_action( 'wp_ajax_customizer_reset', __NAMESPACE__ . '\remove_theme_modificat
  * @since 1.0.0
  */
 function remove_theme_modifications() {
-	global $wp_customize;
+	global $wp_customize, $options;
 
 	// Bail early if we are in preview mode.
 	if ( ! $wp_customize->is_preview() ) {
@@ -78,13 +78,27 @@ function remove_theme_modifications() {
 	$theme_options       = get_option( "et_{$themename}" );
 
 	if ( 'divi' === $themename ) {
-		if ( $theme_options ) {
-			delete_option( "et_{$themename}" );
-		}
-		if ( $customizer_settings ) {
-			foreach ( $customizer_settings as $setting_id => $setting_value ) {
-				remove_theme_mod( $setting_id );
+		if ( $options ) {
+			$et_divi = array();
+			foreach ( $options as $option ) {
+				// Skip option without id.
+				if ( ! isset( $option['id'] ) ) {
+					continue;
+				}
+
+				// Leave only Theme Options and remove customizer settings from array.
+				if ( isset( $theme_options[ $option['id'] ] ) ) {
+					$et_divi[ $option['id'] ] = $theme_options[ $option['id'] ];
+				}
 			}
+
+			if ( ! empty( $et_divi ) ) {
+				update_option( "et_{$themename}", $et_divi );
+			}
+		}
+
+		if ( $customizer_settings ) {
+			delete_option( "theme_mods_{$themename}" );
 		}
 	}
 
