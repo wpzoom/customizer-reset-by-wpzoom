@@ -63,6 +63,32 @@ function remove_theme_modifications() {
 	}
 
 	/**
+	 * Make compatible with Divi customizer settings.
+	 *
+	 * The Theme Options are stored in wp_options  table, the option name is et_divi.
+	 *
+	 * The Options of the Theme Customizer are stored in the wp_options table, the option name is theme_mods_*themename* .
+	 * For example if you are using Divi theme the option name will be theme_mods_divi.
+	 *
+	 * @since 1.0.2
+	 */
+	$theme               = wp_get_theme(); // gets the current theme.
+	$themename           = strtolower( $theme->name );
+	$customizer_settings = get_option( "theme_mods_{$themename}" );
+	$theme_options       = get_option( "et_{$themename}" );
+
+	if ( 'divi' === $themename ) {
+		if ( $theme_options ) {
+			delete_option( "et_{$themename}" );
+		}
+		if ( $customizer_settings ) {
+			foreach ( $customizer_settings as $setting_id => $setting_value ) {
+				remove_theme_mod( $setting_id );
+			}
+		}
+	}
+
+	/**
 	 * Filter the settings that will be removed.
 	 *
 	 * @param array $settings Theme modifications.

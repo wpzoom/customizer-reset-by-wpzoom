@@ -11,7 +11,7 @@ jQuery(function ($) {
         });
     $button.on('click', function (event) {
         event.preventDefault();
-        
+
         var data = {
             wp_customize: 'on',
             action: 'customizer_reset',
