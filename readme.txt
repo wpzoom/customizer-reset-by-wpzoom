@@ -15,7 +15,7 @@ Reset theme customizations made via WordPress Customizer.
 
 Reset theme customizations made via WordPress Customizer.
 
-This plugin removes all theme modifications that are registered via Customizer API. 
+This plugin removes all theme modifications that are registered via Customizer API.
 
 This should work with all themes and plugins that uses theme_mod settings type for storing modifications.
 
@@ -52,6 +52,7 @@ https://www.wpzoom.com
 
 = 1.1.0 =
 * Refactor code to use PHP Namespaces
+* Add compatibility with Divi Theme Customizer settings
 * Add PHP Docblocks for all functions
 * Add automatic deploy to wordpress.org with GitHub Action
 * Add PHP matrix test with GitHub Action

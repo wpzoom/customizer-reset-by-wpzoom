@@ -70,7 +70,7 @@ function remove_theme_modifications() {
 	 * The Options of the Theme Customizer are stored in the wp_options table, the option name is theme_mods_*themename* .
 	 * For example if you are using Divi theme the option name will be theme_mods_divi.
 	 *
-	 * @since 1.0.2
+	 * @since 1.1.0
 	 */
 	$theme               = wp_get_theme(); // gets the current theme.
 	$themename           = strtolower( $theme->name );
