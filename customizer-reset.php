@@ -3,7 +3,7 @@
  * Plugin Name: Customizer Reset
  * Plugin URI: http://wordpress.org/plugins/customizer-reset/
  * Description: Reset theme customizations (theme_mods) made via WordPress Customizer
- * Version: 1.0.1
+ * Version: 1.1.0
  * Author: WPZOOM
  * Author URI: http://wpzoom.com/
  * Text Domain: customizer-reset
