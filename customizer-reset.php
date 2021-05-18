@@ -9,10 +9,10 @@
  * Text Domain: customizer-reset
  * License: GPLv2 or later
  *
- * @package ZOOM_Customizer_Reset
+ * @package WPZOOM_Customizer_Reset
  */
 
-namespace ZOOM_Customizer_Reset;
+namespace WPZOOM_Customizer_Reset;
 
 add_action( 'customize_controls_print_scripts', __NAMESPACE__ . '\enqueue_scripts' );
 /**
@@ -22,11 +22,13 @@ add_action( 'customize_controls_print_scripts', __NAMESPACE__ . '\enqueue_script
  * @since 1.0.0
  */
 function enqueue_scripts() {
+	$file_mod_time = strval( filemtime( plugin_dir_path( __FILE__ ) . 'assets/js/customizer-reset.js' ) );
+
 	wp_enqueue_script(
 		'zoom-customizer-reset',
 		plugins_url( '/assets/js/customizer-reset.js', __FILE__ ),
 		array( 'jquery' ),
-		'20150120',
+		$file_mod_time,
 		false
 	);
 	wp_localize_script(
@@ -52,7 +54,7 @@ add_action( 'wp_ajax_customizer_reset', __NAMESPACE__ . '\remove_theme_modificat
 function remove_theme_modifications() {
 	global $wp_customize, $options;
 
-	// Bail early if we are in preview mode.
+	// Bail early if we are not in preview mode.
 	if ( ! $wp_customize->is_preview() ) {
 		wp_send_json_error( 'not_preview' );
 	}
@@ -61,6 +63,10 @@ function remove_theme_modifications() {
 	if ( ! check_ajax_referer( 'customizer-reset', 'nonce', false ) ) {
 		wp_send_json_error( 'invalid_nonce' );
 	}
+
+	// Gets the current theme.
+	$theme     = wp_get_theme();
+	$themename = strtolower( $theme->name );
 
 	/**
 	 * Make compatible with Divi customizer settings.
@@ -72,12 +78,10 @@ function remove_theme_modifications() {
 	 *
 	 * @since 1.1.0
 	 */
-	$theme               = wp_get_theme(); // gets the current theme.
-	$themename           = strtolower( $theme->name );
-	$customizer_settings = get_option( "theme_mods_{$themename}" );
-	$theme_options       = get_option( "et_{$themename}" );
-
 	if ( 'divi' === $themename ) {
+		$customizer_settings = get_option( "theme_mods_{$themename}" );
+		$theme_options       = get_option( "et_{$themename}" );
+
 		if ( $options ) {
 			$et_divi = array();
 			foreach ( $options as $option ) {
@@ -99,6 +103,32 @@ function remove_theme_modifications() {
 
 		if ( $customizer_settings ) {
 			delete_option( "theme_mods_{$themename}" );
+		}
+	}
+
+	/**
+	 * Make compatible with Astra theme.
+	 * All customizer settings are stored to option 'astra-settings'.
+	 *
+	 * @since 1.1.1
+	 */
+	if ( 'astra' === $themename ) {
+		if ( defined( 'ASTRA_THEME_SETTINGS' ) ) {
+			$theme_options = get_option( ASTRA_THEME_SETTINGS );
+			$auto_version  = false;
+
+			if ( isset( $theme_options['theme-auto-version'] ) ) {
+				$auto_version = $theme_options['theme-auto-version'];
+			}
+			if ( isset( $theme_options['astra-addon-auto-version'] ) ) {
+				$auto_version = $theme_options['astra-addon-auto-version'];
+			}
+
+			if ( false !== $auto_version ) {
+				update_option( ASTRA_THEME_SETTINGS, $auto_version );
+			} else {
+				delete_option( ASTRA_THEME_SETTINGS );
+			}
 		}
 	}
 
