@@ -13,7 +13,7 @@ Reset theme customizations made via WordPress Customizer.
 
 == Description ==
 
-Reset theme customizations made via WordPress Customizer in one click. Works with 99% of themes, including [WPZOOM themes](https://www.wpzoom.com/themes/) and popular themes like **Divi**, **Astra**.”
+Reset theme customizations made via WordPress Customizer in one click. Works with 99% of themes, including [WPZOOM themes](https://www.wpzoom.com/themes/) and popular themes like **Divi**, **Astra**.
 
 This plugin removes all theme modifications that are registered via Customizer API.
 
