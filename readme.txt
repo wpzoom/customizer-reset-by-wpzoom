@@ -1,23 +1,28 @@
 === Customizer Reset ===
 Contributors: WPZOOM, nvartolomei, claytoncollie
 Donate link: http://wpzoom.com/
-Tags: customize, customizer, reset, wpzoom
+Tags: customize, customizer reset, wpzoom
 Requires PHP: 5.6
 Requires at least: 3.4
 Tested up to: 5.7
 Stable tag: trunk
-License: GPLv2 or later
+License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Reset theme customizations made via WordPress Customizer.
 
 == Description ==
 
-Reset theme customizations made via WordPress Customizer.
+Reset theme customizations made via WordPress Customizer just in one click.
 
 This plugin removes all theme modifications that are registered via Customizer API.
 
 This should work with all themes and plugins that uses theme_mod settings type for storing modifications.
+
+> Please keep in mind that some themes uses different method to save customizer settings, [let us know](https://wordpress.org/support/plugin/customizer-reset-by-wpzoom/) if this plugin aren't compatible with the theme you use.
+
+= 📌 Wthat's new in version 1.1? =
+* Compatibility with themes: [Divi](https://www.elegantthemes.com/gallery/divi/), [Astra](https://wordpress.org/themes/astra/)
 
 == Get Involved ==
 
@@ -49,6 +54,9 @@ https://www.wpzoom.com
 1. Reset along with Save button in WordPress Customizer panel.
 
 == Changelog ==
+
+= 1.1.1 =
+* Add compatibility with Astra Theme
 
 = 1.1.0 =
 * Refactor code to use PHP Namespaces
