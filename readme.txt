@@ -13,7 +13,7 @@ Reset theme customizations made via WordPress Customizer.
 
 == Description ==
 
-Reset theme customizations made via WordPress Customizer in one click. Works with 99% of themes, including [WPZOOM themes](https://www.wpzoom.com/themes/) and popular themes like **Divi**, **Astra**.”
+Reset theme customizations made via WordPress Customizer in one click. Works with 99% of themes, including [WPZOOM themes](https://www.wpzoom.com/themes/) and popular themes like **Divi**, **Astra**.
 
 This plugin removes all theme modifications that are registered via Customizer API.
 
@@ -21,7 +21,7 @@ Works with all themes and plugins that use **theme_mod** settings type for stori
 
 > Please keep in mind that some themes uses different method to save customizer settings, [let us know](https://wordpress.org/support/plugin/customizer-reset-by-wpzoom/) if this plugin isn't compatible with your theme.
 
-= 📌 What's new in version **1.1**? =
+= 📌 What's new in version 1.1? =
 * Added compatibility with: [Divi](https://www.elegantthemes.com/gallery/divi/), [Astra](https://wordpress.org/themes/astra/)
 
 == Get Involved ==
