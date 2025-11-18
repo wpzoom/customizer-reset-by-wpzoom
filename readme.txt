@@ -1,28 +1,44 @@
 === Customizer Reset ===
 Contributors: WPZOOM, nvartolomei, claytoncollie
 Donate link: https://www.wpzoom.com/
-Tags: customize, customizer reset, customizer, wpzoom, divi, theme, astra
+Tags: customize, customizer reset, customizer, wpzoom, divi, theme, astra, backup, export, import
 Requires PHP: 5.6
-Requires at least: 3.4
-Tested up to: 5.7
+Requires at least: 4.7
+Tested up to: 6.7
 Stable tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Reset theme customizations made via WordPress Customizer.
+Reset theme customizations made via WordPress Customizer with backup, export, and import features.
 
 == Description ==
 
-Reset theme customizations made via WordPress Customizer in one click. Works with 99% of themes, including [WPZOOM themes](https://www.wpzoom.com/themes/) and popular themes like **Divi**, **Astra**.
+Reset theme customizations made via WordPress Customizer with enhanced safety features. Works with 99% of themes, including [WPZOOM themes](https://www.wpzoom.com/themes/) and popular themes like **Divi**, **Astra**, **GeneratePress**.
 
-This plugin removes all theme modifications that are registered via Customizer API.
+This plugin removes all theme modifications that are registered via Customizer API, with the added safety of backup, export, and import capabilities.
 
 Works with all themes and plugins that use **theme_mod** settings type for storing modifications.
 
 > Please keep in mind that some themes uses different method to save customizer settings, [let us know](https://wordpress.org/support/plugin/customizer-reset-by-wpzoom/) if this plugin isn't compatible with your theme.
 
-= 📌 What's new in version 1.1? =
-* Added compatibility with: [Divi](https://www.elegantthemes.com/gallery/divi/), [Astra](https://wordpress.org/themes/astra/)
+= 📌 What's new in version 1.2? =
+* **NEW:** Redesigned UI with settings gear icon (matches WordPress Publish button style)
+* **NEW:** Import/Export Settings - Dual format support (JSON and DAT)
+* **NEW:** Image Import - Automatically download and import images from other sites
+* **NEW:** Backup & Reset - Automatically create a backup before resetting (5 rotating backups)
+* **NEW:** Backup History - View and restore from the last 5 backups
+* **NEW:** Full Customizer Export/Import Plugin Compatibility
+* **NEW:** WordPress Action Hooks - Proper theme compatibility during import
+* **NEW:** Developer Filter Hook - Extensible export functionality
+* **NEW:** Enhanced Security - Proper capability checks and input validation
+* **NEW:** GeneratePress Theme compatibility
+* Improved UX with customizer section panel and inline notifications
+* Updated WordPress compatibility to 6.7
+* Fixed undefined variable bugs
+* Added translation support
+
+= Previous versions =
+* 1.1: Added compatibility with Divi and Astra themes
 
 == Get Involved ==
 
@@ -41,7 +57,9 @@ Theme settings saved as `theme_mod` will be reset.
 
 = Is reset reversible? =
 
-*No*. Once you reset theme modifications you can not go back. You will need to redo all modifications from scratch.
+**Yes, if you use "Backup & Reset"!** The plugin now offers a backup feature that stores your settings for 30 days. Use the "Backup & Reset" button to automatically create a backup before resetting.
+
+If you use the regular "Reset" button without backup, the action is irreversible and you'll need to redo all modifications from scratch.
 
 = Who built this plugin? =
 
@@ -54,6 +72,32 @@ https://www.wpzoom.com
 1. Reset along with Save button in WordPress Customizer panel.
 
 == Changelog ==
+
+= 1.2.0 =
+* **NEW:** Redesigned UI - Settings gear icon that opens customizer section panel
+* **NEW:** Import/Export - Dual format support (JSON recommended, DAT for compatibility)
+* **NEW:** Image Import - Option to automatically download and import images from remote URLs
+* **NEW:** Backup System - 5 rotating backups stored for 30 days via transients
+* **NEW:** Backup History UI - View and restore from previous backups
+* **NEW:** Full compatibility with Customizer Export/Import plugin files
+* **NEW:** WordPress Hooks - Calls customize_save, customize_save_{$key}, customize_save_after during import
+* **NEW:** Developer Filter - customizer_reset_export_option_keys for extensibility
+* **SECURITY:** Added proper capability checks (edit_theme_options)
+* **SECURITY:** Added input validation for AJAX requests
+* **SECURITY:** Sanitized all inputs and keys
+* Add compatibility with GeneratePress theme
+* Add translation loading support
+* Add custom CSS for polished UI styling
+* Fix undefined $options variable bug in Divi compatibility
+* Improve Astra theme compatibility code
+* Update WordPress compatibility to 6.7
+* Better UX with customizer section and inline notifications
+* Add ARIA labels and expanded states for accessibility
+* Add error handling for network failures
+* Show warning if no backup exists when using Reset button
+* File validation for JSON and DAT imports
+* Recursive image import for nested arrays
+* Header image metadata handling
 
 = 1.1.1 =
 * Add compatibility with Astra Theme

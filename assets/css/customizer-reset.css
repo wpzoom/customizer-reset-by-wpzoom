@@ -1,0 +1,236 @@
+/* Zoom Customizer Reset - Section Styles */
+
+/* Reset button in header */
+.zoom-reset-settings {
+    float: right;
+    margin-right: 10px;
+    margin-top: 9px;
+}
+
+.zoom-reset-settings .dashicons {
+    margin-right: 4px;
+    vertical-align: middle;
+    font-size: 16px;
+    line-height: 1;
+}
+
+/* Section content */
+.zoom-reset-section-content {
+    padding: 12px 0;
+}
+
+.zoom-reset-section-content h4 {
+    margin: 12px 0 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1d2327;
+}
+
+/* Action buttons */
+.zoom-reset-actions button {
+    display: block;
+    width: 100%;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+.zoom-reset-actions button .dashicons {
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+.zoom-action-backup-reset {
+    background: #00a32a;
+    border-color: #00a32a;
+    color: #fff;
+}
+
+.zoom-action-backup-reset:hover,
+.zoom-action-backup-reset:focus {
+    background: #008a20;
+    border-color: #008a20;
+    color: #fff;
+}
+
+.zoom-action-reset {
+    color: #d63638;
+}
+
+.zoom-action-reset:hover,
+.zoom-action-reset:focus {
+    color: #d63638;
+}
+
+/* Export format selection */
+.zoom-export-format {
+    margin: 12px 0;
+    padding: 12px;
+    background: #f6f7f7;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+}
+
+/* Import images option */
+.zoom-import-images-option {
+    display: block;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-weight: normal;
+    font-size: 13px;
+}
+
+.zoom-import-images-option input[type="checkbox"] {
+    margin-right: 6px;
+}
+
+.zoom-export-format > label:first-of-type {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: #1d2327;
+}
+
+.zoom-format-option {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: normal;
+}
+
+.zoom-format-option input[type="radio"] {
+    margin-right: 6px;
+}
+
+.zoom-format-option .description {
+    color: #646970;
+    font-size: 12px;
+    font-style: italic;
+    margin-left: 4px;
+}
+
+/* Separator */
+.zoom-separator {
+    margin: 16px 0;
+    border: 0;
+    border-top: 1px solid #dcdcde;
+}
+
+/* Backup history */
+.zoom-backup-history {
+    margin-top: 16px;
+}
+
+.zoom-backup-history h4 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.zoom-backup-count {
+    font-weight: normal;
+    color: #646970;
+    font-size: 12px;
+}
+
+.zoom-backup-actions {
+    margin-bottom: 12px;
+}
+
+.zoom-delete-all-backups {
+    font-size: 12px;
+    padding: 4px 8px;
+    height: auto;
+}
+
+.zoom-delete-all-backups .dashicons {
+    font-size: 14px;
+    line-height: 1;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+
+.zoom-backup-list {
+    list-style: none;
+    margin: 8px 0 0;
+    padding: 0;
+}
+
+.zoom-backup-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    margin-bottom: 8px;
+    background: #f6f7f7;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+}
+
+.zoom-backup-item:hover {
+    background: #fff;
+    border-color: #8c8f94;
+}
+
+.zoom-backup-info {
+    flex: 1;
+}
+
+.zoom-backup-info strong {
+    display: block;
+    font-size: 13px;
+    color: #1d2327;
+    margin-bottom: 4px;
+}
+
+.zoom-backup-meta {
+    color: #646970;
+    font-size: 12px;
+}
+
+.zoom-backup-buttons {
+    flex-shrink: 0;
+    margin-left: 12px;
+    display: flex;
+    gap: 4px;
+}
+
+.zoom-restore-backup {
+    flex-shrink: 0;
+}
+
+.zoom-delete-backup {
+    flex-shrink: 0;
+    padding: 4px 8px;
+    min-width: 0;
+}
+
+.zoom-delete-backup .dashicons {
+    font-size: 16px;
+    line-height: 1;
+}
+
+/* Responsive */
+@media screen and (max-width: 782px) {
+    .zoom-reset-settings {
+        margin-top: 7px;
+        padding: 6px 10px !important;
+    }
+
+    .zoom-backup-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .zoom-backup-buttons {
+        margin-left: 0;
+        margin-top: 8px;
+        width: 100%;
+    }
+
+    .zoom-restore-backup {
+        flex: 1;
+    }
+
+    .zoom-delete-backup {
+        flex-shrink: 0;
+    }
+}
