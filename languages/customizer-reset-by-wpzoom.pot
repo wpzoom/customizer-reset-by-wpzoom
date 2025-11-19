@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Customizer Reset\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-19 09:12+0000\n"
+"POT-Creation-Date: 2025-11-19 09:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -70,6 +70,7 @@ msgid "Backup restored successfully"
 msgstr ""
 
 #. Name of the plugin
+#: customizer-reset.php:30
 msgid "Customizer Backup & Reset"
 msgstr ""
 
@@ -144,10 +145,6 @@ msgstr ""
 
 #: customizer-reset.php:252
 msgid "Reset"
-msgstr ""
-
-#: customizer-reset.php:30
-msgid "Reset & Import/Export"
 msgstr ""
 
 #: customizer-reset.php:256
