@@ -20,10 +20,14 @@
 }
 
 .zoom-reset-section-content h4 {
-    margin: 12px 0 8px;
+    margin: 16px 0 10px;
     font-size: 13px;
     font-weight: 600;
     color: #1d2327;
+}
+
+.zoom-reset-section-content h4:first-child {
+    margin-top: 0;
 }
 
 /* Action buttons */
@@ -40,20 +44,21 @@
 }
 
 .zoom-action-backup-reset {
-    background: #00a32a;
-    border-color: #00a32a;
+    background: #2271b1;
+    border-color: #2271b1;
     color: #fff;
 }
 
 .zoom-action-backup-reset:hover,
 .zoom-action-backup-reset:focus {
-    background: #008a20;
-    border-color: #008a20;
+    background: #135e96;
+    border-color: #135e96;
     color: #fff;
 }
 
 .zoom-action-reset {
     color: #d63638;
+    margin-bottom: 0;
 }
 
 .zoom-action-reset:hover,
@@ -61,20 +66,89 @@
     color: #d63638;
 }
 
-/* Export format selection */
-.zoom-export-format {
+/* Export/Import buttons spacing */
+.zoom-action-export {
+    margin-bottom: 8px;
+}
+
+.zoom-action-import {
+    margin-bottom: 8px;
+}
+
+/* File info */
+.zoom-reset-actions > .description {
+    margin: 0 0 8px;
+    font-size: 12px;
+}
+
+/* Drag and drop zone */
+.zoom-import-dropzone {
     margin: 12px 0;
-    padding: 12px;
+    padding: 24px;
     background: #f6f7f7;
-    border: 1px solid #dcdcde;
+    border: 2px dashed #dcdcde;
     border-radius: 4px;
+    text-align: center;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.zoom-import-dropzone .dashicons {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    color: #8c8f94;
+    margin-bottom: 8px;
+}
+
+.zoom-import-dropzone p {
+    margin: 0 0 4px;
+    font-size: 13px;
+    color: #1d2327;
+    font-weight: 500;
+}
+
+.zoom-import-dropzone .description {
+    color: #646970;
+    font-size: 12px;
+}
+
+.zoom-import-dropzone:hover {
+    background: #fff;
+    border-color: #8c8f94;
+}
+
+.zoom-import-dropzone.drag-over {
+    background: #f0f6fc;
+    border-color: #2271b1;
+}
+
+.zoom-import-dropzone.drag-over .dashicons {
+    color: #2271b1;
+}
+
+.zoom-import-dropzone .zoom-confirm-import {
+    margin-top: 4px;
+}
+
+.zoom-import-dropzone .zoom-confirm-import .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    color: inherit;
+    margin-bottom: 0;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+.zoom-import-dropzone .zoom-cancel-import {
+    margin-top: 4px;
 }
 
 /* Import images option */
 .zoom-import-images-option {
     display: block;
-    margin-top: 8px;
-    margin-bottom: 8px;
+    margin: 0 0 12px;
     font-weight: normal;
     font-size: 13px;
 }
@@ -83,10 +157,20 @@
     margin-right: 6px;
 }
 
+/* Export format selection */
+.zoom-export-format {
+    margin: 0;
+    padding: 12px;
+    background: #f6f7f7;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+}
+
 .zoom-export-format > label:first-of-type {
     display: block;
     margin-bottom: 8px;
     font-size: 13px;
+    font-weight: 600;
     color: #1d2327;
 }
 
@@ -94,6 +178,10 @@
     display: block;
     margin-bottom: 6px;
     font-weight: normal;
+}
+
+.zoom-format-option:last-child {
+    margin-bottom: 0;
 }
 
 .zoom-format-option input[type="radio"] {

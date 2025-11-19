@@ -78,7 +78,42 @@ function get_reset_section_description() {
 	?>
 	<div class="zoom-reset-section-content">
 		<div class="zoom-reset-actions">
-			<h4><?php esc_html_e( 'Actions', 'customizer-reset' ); ?></h4>
+			<h4><?php esc_html_e( 'Reset Customizer', 'customizer-reset' ); ?></h4>
+
+			<button type="button" class="button button-primary zoom-action-backup-reset" data-action="backup-reset">
+				<span class="dashicons dashicons-backup"></span>
+				<?php esc_html_e( 'Backup & Reset', 'customizer-reset' ); ?>
+			</button>
+
+			<button type="button" class="button button-link-delete zoom-action-reset" data-action="reset">
+				<span class="dashicons dashicons-warning"></span>
+				<?php esc_html_e( 'Reset (No Backup)', 'customizer-reset' ); ?>
+			</button>
+
+			<hr class="zoom-separator">
+
+			<h4><?php esc_html_e( 'Import & Export', 'customizer-reset' ); ?></h4>
+
+			<button type="button" class="button button-secondary zoom-action-export" data-action="export">
+				<span class="dashicons dashicons-download"></span>
+				<?php esc_html_e( 'Export Customizer Settings', 'customizer-reset' ); ?>
+			</button>
+
+			<button type="button" class="button button-secondary zoom-action-import" data-action="import">
+				<span class="dashicons dashicons-upload"></span>
+				<?php esc_html_e( 'Import Customizer Settings', 'customizer-reset' ); ?>
+			</button>
+
+			<div class="zoom-import-dropzone">
+				<span class="dashicons dashicons-upload"></span>
+				<p><?php esc_html_e( 'Or drag and drop a file here', 'customizer-reset' ); ?></p>
+				<span class="description"><?php esc_html_e( '.json or .dat file', 'customizer-reset' ); ?></span>
+			</div>
+
+			<label class="zoom-import-images-option">
+				<input type="checkbox" id="zoom-import-images-checkbox" value="1">
+				<?php esc_html_e( 'Download and import image files?', 'customizer-reset' ); ?>
+			</label>
 
 			<div class="zoom-export-format">
 				<label>
@@ -95,35 +130,6 @@ function get_reset_section_description() {
 					<span class="description">(<?php esc_html_e( 'compatible with Customizer Export/Import', 'customizer-reset' ); ?>)</span>
 				</label>
 			</div>
-
-			<button type="button" class="button button-secondary zoom-action-export" data-action="export">
-				<span class="dashicons dashicons-download"></span>
-				<?php esc_html_e( 'Export Settings', 'customizer-reset' ); ?>
-			</button>
-
-			<button type="button" class="button button-secondary zoom-action-import" data-action="import">
-				<span class="dashicons dashicons-upload"></span>
-				<?php esc_html_e( 'Import Settings', 'customizer-reset' ); ?>
-			</button>
-			<p class="description" style="margin-top: 4px; margin-bottom: 4px;">
-				<?php esc_html_e( 'Supports .json and .dat files', 'customizer-reset' ); ?>
-			</p>
-			<label class="zoom-import-images-option">
-				<input type="checkbox" id="zoom-import-images-checkbox" value="1">
-				<?php esc_html_e( 'Download and import image files?', 'customizer-reset' ); ?>
-			</label>
-
-			<hr class="zoom-separator">
-
-			<button type="button" class="button button-primary zoom-action-backup-reset" data-action="backup-reset">
-				<span class="dashicons dashicons-backup"></span>
-				<?php esc_html_e( 'Backup & Reset', 'customizer-reset' ); ?>
-			</button>
-
-			<button type="button" class="button button-link-delete zoom-action-reset" data-action="reset">
-				<span class="dashicons dashicons-warning"></span>
-				<?php esc_html_e( 'Reset (No Backup)', 'customizer-reset' ); ?>
-			</button>
 		</div>
 
 		<hr class="zoom-separator">

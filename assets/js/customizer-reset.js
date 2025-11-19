@@ -73,11 +73,127 @@ jQuery(function ($) {
     });
 
     // Handle file selection
+    var fromDropzone = false;
     $fileInput.on('change', function() {
         if (this.files.length > 0) {
-            handleImportFile(this.files[0]);
+            var file = this.files[0];
+
+            // If file was selected from dropzone, show confirmation
+            if (fromDropzone) {
+                // Validate file type
+                if (!file.name.match(/\.(json|dat)$/i)) {
+                    showNotification('error', 'Please select a JSON or DAT file');
+                    fromDropzone = false;
+                    return;
+                }
+
+                droppedFile = file;
+                showDroppedFileConfirmation(file);
+                fromDropzone = false;
+            } else {
+                // Import button click - import directly
+                handleImportFile(file);
+            }
         }
     });
+
+    // Drag and drop functionality - use event delegation since dropzone is dynamically loaded
+    var droppedFile = null;
+
+    // Handle dropzone click - trigger file input
+    $(document).on('click', '.zoom-import-dropzone', function(e) {
+        e.preventDefault();
+        // Don't trigger file input if clicking on the confirm or cancel buttons
+        if ($(e.target).hasClass('zoom-confirm-import') || $(e.target).parent().hasClass('zoom-confirm-import') ||
+            $(e.target).hasClass('zoom-cancel-import') || $(e.target).parent().hasClass('zoom-cancel-import')) {
+            return;
+        }
+        fromDropzone = true;
+        $fileInput.val('').trigger('click');
+    });
+
+    // Handle drag enter/over
+    $(document).on('dragover dragenter', '.zoom-import-dropzone', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $(this).addClass('drag-over');
+    });
+
+    // Handle drag leave
+    $(document).on('dragleave', '.zoom-import-dropzone', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $(this).removeClass('drag-over');
+    });
+
+    // Handle file drop
+    $(document).on('drop', '.zoom-import-dropzone', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $(this).removeClass('drag-over');
+
+        var files = e.originalEvent.dataTransfer.files;
+        if (files.length > 0) {
+            var file = files[0];
+
+            // Validate file type
+            if (!file.name.match(/\.(json|dat)$/i)) {
+                showNotification('error', 'Please select a JSON or DAT file');
+                return;
+            }
+
+            // Store the file and show confirmation
+            droppedFile = file;
+            showDroppedFileConfirmation(file);
+        }
+    });
+
+    // Show confirmation UI after file is dropped
+    function showDroppedFileConfirmation(file) {
+        var $dropzone = $('.zoom-import-dropzone');
+
+        // Update dropzone content to show file info and confirm button
+        $dropzone.html(
+            '<span class="dashicons dashicons-yes-alt" style="color: #00a32a;"></span>' +
+            '<p><strong>File ready to import:</strong></p>' +
+            '<p class="description" style="margin-bottom: 12px;">' + file.name + '</p>' +
+            '<button type="button" class="button button-primary zoom-confirm-import">' +
+            '<span class="dashicons dashicons-upload"></span> Import this file' +
+            '</button>' +
+            '<button type="button" class="button zoom-cancel-import" style="margin-left: 8px;">' +
+            'Cancel' +
+            '</button>'
+        );
+    }
+
+    // Handle confirm import button click
+    $(document).on('click', '.zoom-confirm-import', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (droppedFile) {
+            handleImportFile(droppedFile);
+            droppedFile = null;
+            resetDropzone();
+        }
+    });
+
+    // Handle cancel import button click
+    $(document).on('click', '.zoom-cancel-import', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        droppedFile = null;
+        resetDropzone();
+    });
+
+    // Reset dropzone to original state
+    function resetDropzone() {
+        var $dropzone = $('.zoom-import-dropzone');
+        $dropzone.html(
+            '<span class="dashicons dashicons-upload"></span>' +
+            '<p>Or drag and drop a file here</p>' +
+            '<span class="description">.json or .dat file</span>'
+        );
+    }
 
     // Export functionality
     function handleExport() {
