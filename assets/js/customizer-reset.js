@@ -160,7 +160,7 @@ jQuery(function ($) {
             '<button type="button" class="button button-primary zoom-confirm-import">' +
             '<span class="dashicons dashicons-upload"></span> Import this file' +
             '</button>' +
-            '<button type="button" class="button zoom-cancel-import" style="margin-left: 8px;">' +
+            '<button type="button" class="button zoom-cancel-import">' +
             'Cancel' +
             '</button>'
         );
@@ -340,6 +340,9 @@ jQuery(function ($) {
 
         showNotification('info', 'Creating backup...');
 
+        // Get checkbox state for CSS reset
+        var resetCss = $('#zoom-reset-css-checkbox').is(':checked');
+
         // First create backup
         $.post(ajaxurl, {
             wp_customize: 'on',
@@ -353,7 +356,8 @@ jQuery(function ($) {
                 $.post(ajaxurl, {
                     wp_customize: 'on',
                     action: 'customizer_reset',
-                    nonce: _ZoomCustomizerReset.nonce.reset
+                    nonce: _ZoomCustomizerReset.nonce.reset,
+                    reset_css: resetCss ? '1' : '0'
                 }, function (resetResponse) {
                     if (resetResponse.success) {
                         wp.customize.state('saved').set(true);
@@ -387,10 +391,14 @@ jQuery(function ($) {
 
         showNotification('info', _ZoomCustomizerReset.resetting);
 
+        // Get checkbox state for CSS reset
+        var resetCss = $('#zoom-reset-css-checkbox').is(':checked');
+
         $.post(ajaxurl, {
             wp_customize: 'on',
             action: 'customizer_reset',
-            nonce: _ZoomCustomizerReset.nonce.reset
+            nonce: _ZoomCustomizerReset.nonce.reset,
+            reset_css: resetCss ? '1' : '0'
         }, function (response) {
             if (response.success) {
                 wp.customize.state('saved').set(true);

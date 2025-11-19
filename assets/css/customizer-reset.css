@@ -59,6 +59,7 @@
 .zoom-action-reset {
     color: #d63638;
     margin-bottom: 0;
+    border-color: #d63638 !important;
 }
 
 .zoom-action-reset:hover,
@@ -145,6 +146,18 @@
     margin-top: 4px;
 }
 
+/* Reset CSS option */
+.zoom-reset-css-option {
+    display: block;
+    margin: 8px 0 0;
+    font-weight: normal;
+    font-size: 13px;
+}
+
+.zoom-reset-css-option input[type="checkbox"] {
+    margin-right: 6px;
+}
+
 /* Import images option */
 .zoom-import-images-option {
     display: block;
@@ -227,6 +240,7 @@
     font-size: 12px;
     padding: 4px 8px;
     height: auto;
+    border-color: #d63638 !important;
 }
 
 .zoom-delete-all-backups .dashicons {
@@ -238,7 +252,7 @@
 
 .zoom-backup-list {
     list-style: none;
-    margin: 8px 0 0;
+    margin: 8px 0 0 !important;
     padding: 0;
 }
 
@@ -287,8 +301,9 @@
 
 .zoom-delete-backup {
     flex-shrink: 0;
-    padding: 4px 8px;
+    padding: 6px 8px 1px !important;
     min-width: 0;
+    border-color: #d63638 !important;
 }
 
 .zoom-delete-backup .dashicons {

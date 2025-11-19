@@ -38,7 +38,7 @@ function register_customizer_section( $wp_customize ) {
 	$wp_customize->add_section(
 		'zoom_reset_section',
 		array(
-			'title'       => __( 'Reset Settings', 'customizer-reset' ),
+			'title'       => __( 'Reset & Import/Export', 'customizer-reset' ),
 			'description' => get_reset_section_description(),
 			'priority'    => 200, // Show at the bottom.
 		)
@@ -80,24 +80,29 @@ function get_reset_section_description() {
 		<div class="zoom-reset-actions">
 			<h4><?php esc_html_e( 'Reset Customizer', 'customizer-reset' ); ?></h4>
 
-			<button type="button" class="button button-primary zoom-action-backup-reset" data-action="backup-reset">
+			<p><button type="button" class="button button-primary zoom-action-backup-reset" data-action="backup-reset">
 				<span class="dashicons dashicons-backup"></span>
-				<?php esc_html_e( 'Backup & Reset', 'customizer-reset' ); ?>
-			</button>
+				<?php esc_html_e( 'Backup & Reset Customizer', 'customizer-reset' ); ?>
+			</button></p>
 
 			<button type="button" class="button button-link-delete zoom-action-reset" data-action="reset">
 				<span class="dashicons dashicons-warning"></span>
-				<?php esc_html_e( 'Reset (No Backup)', 'customizer-reset' ); ?>
+				<?php esc_html_e( 'Reset Customizer (No Backup)', 'customizer-reset' ); ?>
 			</button>
+
+			<label class="zoom-reset-css-option">
+				<input type="checkbox" id="zoom-reset-css-checkbox" value="1">
+				<?php esc_html_e( 'Also remove Additional CSS', 'customizer-reset' ); ?>
+			</label>
 
 			<hr class="zoom-separator">
 
 			<h4><?php esc_html_e( 'Import & Export', 'customizer-reset' ); ?></h4>
 
-			<button type="button" class="button button-secondary zoom-action-export" data-action="export">
+			<p><button type="button" class="button button-secondary zoom-action-export" data-action="export">
 				<span class="dashicons dashicons-download"></span>
 				<?php esc_html_e( 'Export Customizer Settings', 'customizer-reset' ); ?>
-			</button>
+			</button></p>
 
 			<button type="button" class="button button-secondary zoom-action-import" data-action="import">
 				<span class="dashicons dashicons-upload"></span>
@@ -127,7 +132,6 @@ function get_reset_section_description() {
 				<label class="zoom-format-option">
 					<input type="radio" name="zoom-export-format" value="dat">
 					<?php esc_html_e( 'DAT', 'customizer-reset' ); ?>
-					<span class="description">(<?php esc_html_e( 'compatible with Customizer Export/Import', 'customizer-reset' ); ?>)</span>
 				</label>
 			</div>
 		</div>
@@ -434,6 +438,11 @@ function backup_theme_modifications() {
 		'created'    => current_time( 'mysql' ),
 		'mods'       => $theme_mods,
 	);
+
+	// Include Additional CSS in backup if available.
+	if ( function_exists( 'wp_get_custom_css' ) ) {
+		$backup_data['wp_css'] = wp_get_custom_css();
+	}
 
 	// Rotate backups (keep last 5).
 	rotate_backups();
@@ -747,6 +756,11 @@ function restore_backup() {
 		$restored_count++;
 	}
 
+	// Restore Additional CSS if available in backup.
+	if ( isset( $backup['wp_css'] ) && function_exists( 'wp_update_custom_css_post' ) ) {
+		wp_update_custom_css_post( $backup['wp_css'] );
+	}
+
 	wp_send_json_success(
 		array(
 			'message' => __( 'Backup restored successfully', 'customizer-reset' ),
@@ -1000,6 +1014,15 @@ function remove_theme_modifications() {
 			if ( 'theme_mod' === $setting->type ) {
 				remove_theme_mod( $setting->id );
 			}
+		}
+	}
+
+	// Reset Additional CSS if checkbox was checked.
+	$reset_css = isset( $_POST['reset_css'] ) && '1' === $_POST['reset_css'];
+	if ( $reset_css && function_exists( 'wp_get_custom_css_post' ) ) {
+		$custom_css_post = wp_get_custom_css_post();
+		if ( $custom_css_post ) {
+			wp_delete_post( $custom_css_post->ID, true ); // true = force delete, bypass trash.
 		}
 	}
 
