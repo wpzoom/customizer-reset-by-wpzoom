@@ -1,29 +1,18 @@
 <?php
 /**
- * Plugin Name: Customizer Reset
+ * Plugin Name: Customizer Backup & Reset
  * Plugin URI: http://wordpress.org/plugins/customizer-reset/
  * Description: Reset theme customizations (theme_mods) made via WordPress Customizer with backup and export features
- * Version: 1.2.0
+ * Version: 2.0.0
  * Author: WPZOOM
- * Author URI: http://wpzoom.com/
- * Text Domain: customizer-reset
- * License: GPLv2 or later
+ * Author URI: https://www.wpzoom.com/
+ * Text Domain: customizer-reset-by-wpzoom
+ * License: GPLv3 or later
  *
  * @package WPZOOM_Customizer_Reset
  */
 
 namespace WPZOOM_Customizer_Reset;
-
-add_action( 'plugins_loaded', __NAMESPACE__ . '\load_textdomain' );
-/**
- * Load plugin text domain for translations.
- *
- * @return void
- * @since 1.2.0
- */
-function load_textdomain() {
-	load_plugin_textdomain( 'customizer-reset', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
-}
 
 add_action( 'customize_register', __NAMESPACE__ . '\register_customizer_section' );
 /**
@@ -38,7 +27,7 @@ function register_customizer_section( $wp_customize ) {
 	$wp_customize->add_section(
 		'zoom_reset_section',
 		array(
-			'title'       => __( 'Reset & Import/Export', 'customizer-reset' ),
+			'title'       => __( 'Customizer Backup & Reset', 'customizer-reset-by-wpzoom' ),
 			'description' => get_reset_section_description(),
 			'priority'    => 200, // Show at the bottom.
 		)
@@ -78,60 +67,60 @@ function get_reset_section_description() {
 	?>
 	<div class="zoom-reset-section-content">
 		<div class="zoom-reset-actions">
-			<h4><?php esc_html_e( 'Reset Customizer', 'customizer-reset' ); ?></h4>
+			<h4><?php esc_html_e( 'Reset Customizer', 'customizer-reset-by-wpzoom' ); ?></h4>
 
 			<p><button type="button" class="button button-primary zoom-action-backup-reset" data-action="backup-reset">
 				<span class="dashicons dashicons-backup"></span>
-				<?php esc_html_e( 'Backup & Reset Customizer', 'customizer-reset' ); ?>
+				<?php esc_html_e( 'Backup & Reset Customizer', 'customizer-reset-by-wpzoom' ); ?>
 			</button></p>
 
 			<button type="button" class="button button-link-delete zoom-action-reset" data-action="reset">
 				<span class="dashicons dashicons-warning"></span>
-				<?php esc_html_e( 'Reset Customizer (No Backup)', 'customizer-reset' ); ?>
+				<?php esc_html_e( 'Reset Customizer (No Backup)', 'customizer-reset-by-wpzoom' ); ?>
 			</button>
 
 			<label class="zoom-reset-css-option">
 				<input type="checkbox" id="zoom-reset-css-checkbox" value="1">
-				<?php esc_html_e( 'Also remove Additional CSS', 'customizer-reset' ); ?>
+				<?php esc_html_e( 'Also remove Additional CSS', 'customizer-reset-by-wpzoom' ); ?>
 			</label>
 
 			<hr class="zoom-separator">
 
-			<h4><?php esc_html_e( 'Import & Export', 'customizer-reset' ); ?></h4>
+			<h4><?php esc_html_e( 'Import & Export', 'customizer-reset-by-wpzoom' ); ?></h4>
 
 			<p><button type="button" class="button button-secondary zoom-action-export" data-action="export">
 				<span class="dashicons dashicons-download"></span>
-				<?php esc_html_e( 'Export Customizer Settings', 'customizer-reset' ); ?>
+				<?php esc_html_e( 'Export Customizer Settings', 'customizer-reset-by-wpzoom' ); ?>
 			</button></p>
 
 			<button type="button" class="button button-secondary zoom-action-import" data-action="import">
 				<span class="dashicons dashicons-upload"></span>
-				<?php esc_html_e( 'Import Customizer Settings', 'customizer-reset' ); ?>
+				<?php esc_html_e( 'Import Customizer Settings', 'customizer-reset-by-wpzoom' ); ?>
 			</button>
 
 			<div class="zoom-import-dropzone">
 				<span class="dashicons dashicons-upload"></span>
-				<p><?php esc_html_e( 'Or drag and drop a file here', 'customizer-reset' ); ?></p>
-				<span class="description"><?php esc_html_e( '.json or .dat file', 'customizer-reset' ); ?></span>
+				<p><?php esc_html_e( 'Or drag and drop a file here', 'customizer-reset-by-wpzoom' ); ?></p>
+				<span class="description"><?php esc_html_e( '.json or .dat file', 'customizer-reset-by-wpzoom' ); ?></span>
 			</div>
 
 			<label class="zoom-import-images-option">
 				<input type="checkbox" id="zoom-import-images-checkbox" value="1">
-				<?php esc_html_e( 'Download and import image files?', 'customizer-reset' ); ?>
+				<?php esc_html_e( 'Download and import image files?', 'customizer-reset-by-wpzoom' ); ?>
 			</label>
 
 			<div class="zoom-export-format">
 				<label>
-					<strong><?php esc_html_e( 'Export Format:', 'customizer-reset' ); ?></strong>
+					<strong><?php esc_html_e( 'Export Format:', 'customizer-reset-by-wpzoom' ); ?></strong>
 				</label>
 				<label class="zoom-format-option">
 					<input type="radio" name="zoom-export-format" value="json" checked>
-					<?php esc_html_e( 'JSON', 'customizer-reset' ); ?>
-					<span class="description">(<?php esc_html_e( 'recommended', 'customizer-reset' ); ?>)</span>
+					<?php esc_html_e( 'JSON', 'customizer-reset-by-wpzoom' ); ?>
+					<span class="description">(<?php esc_html_e( 'recommended', 'customizer-reset-by-wpzoom' ); ?>)</span>
 				</label>
 				<label class="zoom-format-option">
 					<input type="radio" name="zoom-export-format" value="dat">
-					<?php esc_html_e( 'DAT', 'customizer-reset' ); ?>
+					<?php esc_html_e( 'DAT', 'customizer-reset-by-wpzoom' ); ?>
 				</label>
 			</div>
 		</div>
@@ -140,7 +129,7 @@ function get_reset_section_description() {
 
 		<div class="zoom-backup-history">
 			<h4>
-				<?php esc_html_e( 'Backup History', 'customizer-reset' ); ?>
+				<?php esc_html_e( 'Backup History', 'customizer-reset-by-wpzoom' ); ?>
 				<span class="zoom-backup-count">(<?php echo esc_html( $backup_count ); ?>)</span>
 			</h4>
 
@@ -148,7 +137,7 @@ function get_reset_section_description() {
 				<div class="zoom-backup-actions">
 					<button type="button" class="button button-small button-link-delete zoom-delete-all-backups">
 						<span class="dashicons dashicons-trash"></span>
-						<?php esc_html_e( 'Delete All Backups', 'customizer-reset' ); ?>
+						<?php esc_html_e( 'Delete All Backups', 'customizer-reset-by-wpzoom' ); ?>
 					</button>
 				</div>
 				<ul class="zoom-backup-list">
@@ -161,7 +150,7 @@ function get_reset_section_description() {
 									<?php
 									printf(
 										/* translators: %d: number of settings */
-										esc_html( _n( '%d setting', '%d settings', $backup['count'], 'customizer-reset' ) ),
+										esc_html( _n( '%d setting', '%d settings', $backup['count'], 'customizer-reset-by-wpzoom' ) ),
 										(int) $backup['count']
 									);
 									?>
@@ -169,7 +158,7 @@ function get_reset_section_description() {
 							</div>
 							<div class="zoom-backup-buttons">
 								<button type="button" class="button button-small zoom-restore-backup" data-backup-key="<?php echo esc_attr( $backup['key'] ); ?>">
-									<?php esc_html_e( 'Restore', 'customizer-reset' ); ?>
+									<?php esc_html_e( 'Restore', 'customizer-reset-by-wpzoom' ); ?>
 								</button>
 								<button type="button" class="button button-small button-link-delete zoom-delete-backup" data-backup-key="<?php echo esc_attr( $backup['key'] ); ?>">
 									<span class="dashicons dashicons-trash"></span>
@@ -180,7 +169,7 @@ function get_reset_section_description() {
 				</ul>
 			<?php else : ?>
 				<p class="description">
-					<?php esc_html_e( 'No backups found. Use "Backup & Reset" to create a backup before resetting.', 'customizer-reset' ); ?>
+					<?php esc_html_e( 'No backups found. Use "Backup & Reset" to create a backup before resetting.', 'customizer-reset-by-wpzoom' ); ?>
 				</p>
 			<?php endif; ?>
 		</div>
@@ -218,7 +207,7 @@ function get_backup_list() {
 		if ( $backup && is_array( $backup ) && isset( $backup['mods'] ) ) {
 			$backups[] = array(
 				'key'   => $key,
-				'label' => isset( $backup['created'] ) ? wp_date( 'M j, Y g:i A', strtotime( $backup['created'] ) ) : __( 'Unknown date', 'customizer-reset' ),
+				'label' => isset( $backup['created'] ) ? wp_date( 'M j, Y g:i A', strtotime( $backup['created'] ) ) : __( 'Unknown date', 'customizer-reset-by-wpzoom' ),
 				'count' => count( $backup['mods'] ),
 				'data'  => $backup,
 			);
@@ -260,19 +249,19 @@ function enqueue_scripts() {
 		'zoom-customizer-reset',
 		'_ZoomCustomizerReset',
 		array(
-			'reset'       => __( 'Reset', 'customizer-reset' ),
-			'export'      => __( 'Export Settings', 'customizer-reset' ),
-			'import'      => __( 'Import Settings', 'customizer-reset' ),
-			'backup'      => __( 'Backup & Reset', 'customizer-reset' ),
-			'resetDirect' => __( 'Reset (No Backup)', 'customizer-reset' ),
-			'confirm'     => __( "Attention!\n\nThis will remove all customizations ever made via customizer to this theme.\n\nThis action is irreversible unless you create a backup first.", 'customizer-reset' ),
-			'resetting'   => __( 'Resetting...', 'customizer-reset' ),
-			'exporting'   => __( 'Exporting...', 'customizer-reset' ),
-			'importing'   => __( 'Importing...', 'customizer-reset' ),
-			'restoring'   => __( 'Restoring...', 'customizer-reset' ),
+			'reset'       => __( 'Reset', 'customizer-reset-by-wpzoom' ),
+			'export'      => __( 'Export Settings', 'customizer-reset-by-wpzoom' ),
+			'import'      => __( 'Import Settings', 'customizer-reset-by-wpzoom' ),
+			'backup'      => __( 'Backup & Reset', 'customizer-reset-by-wpzoom' ),
+			'resetDirect' => __( 'Reset (No Backup)', 'customizer-reset-by-wpzoom' ),
+			'confirm'     => __( "Attention!\n\nThis will remove all customizations ever made via customizer to this theme.\n\nThis action is irreversible unless you create a backup first.", 'customizer-reset-by-wpzoom' ),
+			'resetting'   => __( 'Resetting...', 'customizer-reset-by-wpzoom' ),
+			'exporting'   => __( 'Exporting...', 'customizer-reset-by-wpzoom' ),
+			'importing'   => __( 'Importing...', 'customizer-reset-by-wpzoom' ),
+			'restoring'   => __( 'Restoring...', 'customizer-reset-by-wpzoom' ),
 			'hasBackup'   => get_transient( 'customizer_reset_backup_' . get_stylesheet() ) !== false,
 			'nonce'       => array(
-				'reset'      => wp_create_nonce( 'customizer-reset' ),
+				'reset'      => wp_create_nonce( 'customizer-reset-by-wpzoom' ),
 				'export'     => wp_create_nonce( 'customizer-export' ),
 				'import'     => wp_create_nonce( 'customizer-import' ),
 				'backup'     => wp_create_nonce( 'customizer-backup' ),
@@ -458,7 +447,7 @@ function backup_theme_modifications() {
 
 	wp_send_json_success(
 		array(
-			'message' => __( 'Backup created successfully', 'customizer-reset' ),
+			'message' => __( 'Backup created successfully', 'customizer-reset-by-wpzoom' ),
 			'count'   => count( $theme_mods ),
 		)
 	);
@@ -709,7 +698,7 @@ function import_theme_modifications() {
 
 	wp_send_json_success(
 		array(
-			'message' => __( 'Settings imported successfully', 'customizer-reset' ),
+			'message' => __( 'Settings imported successfully', 'customizer-reset-by-wpzoom' ),
 			'count'   => $imported_count,
 		)
 	);
@@ -768,7 +757,7 @@ function restore_backup() {
 
 	wp_send_json_success(
 		array(
-			'message' => __( 'Backup restored successfully', 'customizer-reset' ),
+			'message' => __( 'Backup restored successfully', 'customizer-reset-by-wpzoom' ),
 			'count'   => $restored_count,
 		)
 	);
@@ -812,7 +801,7 @@ function delete_backup() {
 	if ( $deleted ) {
 		wp_send_json_success(
 			array(
-				'message' => __( 'Backup deleted successfully', 'customizer-reset' ),
+				'message' => __( 'Backup deleted successfully', 'customizer-reset-by-wpzoom' ),
 			)
 		);
 	} else {
@@ -870,7 +859,7 @@ function delete_all_backups() {
 		array(
 			'message' => sprintf(
 				/* translators: %d: number of backups deleted */
-				__( '%d backups deleted successfully', 'customizer-reset' ),
+				__( '%d backups deleted successfully', 'customizer-reset-by-wpzoom' ),
 				$deleted_count
 			),
 			'count'   => $deleted_count,

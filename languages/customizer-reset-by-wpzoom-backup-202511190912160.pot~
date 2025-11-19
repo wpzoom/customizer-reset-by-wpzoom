@@ -1,0 +1,193 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Customizer Reset\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-19 09:02+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.8.0; wp-6.8.3; php-8.3.14\n"
+"X-Domain: customizer-reset-by-wpzoom"
+
+#. %d: number of backups deleted
+#: customizer-reset.php:873
+msgid "%d backups deleted successfully"
+msgstr ""
+
+#. %d: number of settings
+#: customizer-reset.php:164
+msgid "%d setting"
+msgid_plural "%d settings"
+msgstr[0] ""
+msgstr[1] ""
+
+#: customizer-reset.php:115
+msgid ".json or .dat file"
+msgstr ""
+
+#: customizer-reset.php:95
+msgid "Also remove Additional CSS"
+msgstr ""
+
+#: customizer-reset.php:268
+msgid ""
+"Attention!\n"
+"\n"
+"This will remove all customizations ever made via customizer to this theme.\n"
+"\n"
+"This action is irreversible unless you create a backup first."
+msgstr ""
+
+#: customizer-reset.php:266
+msgid "Backup & Reset"
+msgstr ""
+
+#: customizer-reset.php:85
+msgid "Backup & Reset Customizer"
+msgstr ""
+
+#: customizer-reset.php:461
+msgid "Backup created successfully"
+msgstr ""
+
+#: customizer-reset.php:815
+msgid "Backup deleted successfully"
+msgstr ""
+
+#: customizer-reset.php:143
+msgid "Backup History"
+msgstr ""
+
+#: customizer-reset.php:771
+msgid "Backup restored successfully"
+msgstr ""
+
+#. Name of the plugin
+msgid "Customizer Reset"
+msgstr ""
+
+#: customizer-reset.php:134
+msgid "DAT"
+msgstr ""
+
+#: customizer-reset.php:151
+msgid "Delete All Backups"
+msgstr ""
+
+#: customizer-reset.php:120
+msgid "Download and import image files?"
+msgstr ""
+
+#: customizer-reset.php:104
+msgid "Export Customizer Settings"
+msgstr ""
+
+#: customizer-reset.php:125
+msgid "Export Format:"
+msgstr ""
+
+#: customizer-reset.php:264
+msgid "Export Settings"
+msgstr ""
+
+#: customizer-reset.php:270
+msgid "Exporting..."
+msgstr ""
+
+#. URI of the plugin
+msgid "http://wordpress.org/plugins/customizer-reset/"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://www.wpzoom.com/"
+msgstr ""
+
+#: customizer-reset.php:100
+msgid "Import & Export"
+msgstr ""
+
+#: customizer-reset.php:109
+msgid "Import Customizer Settings"
+msgstr ""
+
+#: customizer-reset.php:265
+msgid "Import Settings"
+msgstr ""
+
+#: customizer-reset.php:271
+msgid "Importing..."
+msgstr ""
+
+#: customizer-reset.php:129
+msgid "JSON"
+msgstr ""
+
+#: customizer-reset.php:183
+msgid ""
+"No backups found. Use \"Backup & Reset\" to create a backup before resetting."
+msgstr ""
+
+#: customizer-reset.php:114
+msgid "Or drag and drop a file here"
+msgstr ""
+
+#: customizer-reset.php:130
+msgid "recommended"
+msgstr ""
+
+#: customizer-reset.php:263
+msgid "Reset"
+msgstr ""
+
+#: customizer-reset.php:41
+msgid "Reset & Import/Export"
+msgstr ""
+
+#: customizer-reset.php:267
+msgid "Reset (No Backup)"
+msgstr ""
+
+#: customizer-reset.php:81
+msgid "Reset Customizer"
+msgstr ""
+
+#: customizer-reset.php:90
+msgid "Reset Customizer (No Backup)"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Reset theme customizations (theme_mods) made via WordPress Customizer with "
+"backup and export features"
+msgstr ""
+
+#: customizer-reset.php:269
+msgid "Resetting..."
+msgstr ""
+
+#: customizer-reset.php:172
+msgid "Restore"
+msgstr ""
+
+#: customizer-reset.php:272
+msgid "Restoring..."
+msgstr ""
+
+#: customizer-reset.php:712
+msgid "Settings imported successfully"
+msgstr ""
+
+#: customizer-reset.php:221
+msgid "Unknown date"
+msgstr ""
+
+#. Author of the plugin
+msgid "WPZOOM"
+msgstr ""
