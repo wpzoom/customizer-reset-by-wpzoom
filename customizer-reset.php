@@ -332,6 +332,11 @@ function export_as_json() {
 		'mods'       => $theme_mods,
 	);
 
+	// Include Additional CSS in JSON export if available.
+	if ( function_exists( 'wp_get_custom_css' ) ) {
+		$export_data['wp_css'] = wp_get_custom_css();
+	}
+
 	wp_send_json_success( $export_data );
 }
 
