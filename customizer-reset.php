@@ -14,6 +14,17 @@
 
 namespace WPZOOM_Customizer_Reset;
 
+add_action( 'plugins_loaded', __NAMESPACE__ . '\load_textdomain' );
+/**
+ * Load plugin text domain for translations.
+ *
+ * @return void
+ * @since 1.2.0
+ */
+function load_textdomain() {
+	load_plugin_textdomain( 'customizer-reset-by-wpzoom', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+}
+
 add_action( 'customize_register', __NAMESPACE__ . '\register_customizer_section' );
 /**
  * Register customizer section for reset settings.
