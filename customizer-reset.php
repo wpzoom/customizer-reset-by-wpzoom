@@ -225,15 +225,15 @@ add_action( 'customize_controls_print_scripts', __NAMESPACE__ . '\enqueue_script
  * @since 1.0.0
  */
 function enqueue_scripts() {
-	$js_file  = plugin_dir_path( __FILE__ ) . 'assets/js/customizer-reset.js';
-	$css_file = plugin_dir_path( __FILE__ ) . 'assets/css/customizer-reset.css';
+	$plugin_data = get_file_data( __FILE__, array( 'Version' => 'Version' ) );
+	$version     = $plugin_data['Version'];
 
 	// Enqueue CSS.
 	wp_enqueue_style(
 		'zoom-customizer-reset',
 		plugins_url( '/assets/css/customizer-reset.css', __FILE__ ),
 		array(),
-		file_exists( $css_file ) ? strval( filemtime( $css_file ) ) : '1.2.0'
+		$version
 	);
 
 	// Enqueue JavaScript.
@@ -241,7 +241,7 @@ function enqueue_scripts() {
 		'zoom-customizer-reset',
 		plugins_url( '/assets/js/customizer-reset.js', __FILE__ ),
 		array( 'jquery' ),
-		file_exists( $js_file ) ? strval( filemtime( $js_file ) ) : '1.2.0',
+		$version,
 		false
 	);
 
