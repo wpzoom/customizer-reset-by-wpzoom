@@ -9,7 +9,7 @@ jQuery(function ($) {
             'aria-label': 'Customizer Reset Tools',
             'title': 'Reset, Backup, Import & Export'
         })
-        .html('<span class="dashicons dashicons-admin-generic"></span> Reset Tools')
+        .html('<span class="dashicons dashicons-admin-generic"></span> Reset')
         .css({
             'float': 'right',
             'margin-right': '10px',
