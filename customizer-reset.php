@@ -144,13 +144,20 @@ function get_reset_section_description() {
 				<span class="zoom-backup-count">(<?php echo esc_html( $backup_count ); ?>)</span>
 			</h4>
 
-			<?php if ( $backup_count > 0 ) : ?>
-				<div class="zoom-backup-actions">
+			<div class="zoom-backup-actions">
+				<button type="button" class="button button-small zoom-create-backup">
+					<span class="dashicons dashicons-plus-alt"></span>
+					<?php esc_html_e( 'Create Backup', 'customizer-reset-by-wpzoom' ); ?>
+				</button>
+				<?php if ( $backup_count > 0 ) : ?>
 					<button type="button" class="button button-small button-link-delete zoom-delete-all-backups">
 						<span class="dashicons dashicons-trash"></span>
-						<?php esc_html_e( 'Delete All Backups', 'customizer-reset-by-wpzoom' ); ?>
+						<?php esc_html_e( 'Delete All', 'customizer-reset-by-wpzoom' ); ?>
 					</button>
-				</div>
+				<?php endif; ?>
+			</div>
+
+			<?php if ( $backup_count > 0 ) : ?>
 				<ul class="zoom-backup-list">
 					<?php foreach ( $backups as $backup ) : ?>
 						<li class="zoom-backup-item" data-backup-key="<?php echo esc_attr( $backup['key'] ); ?>">
@@ -423,7 +430,7 @@ function backup_theme_modifications() {
 	}
 
 	// Verify we're in customizer preview.
-	if ( ! $wp_customize->is_preview() ) {
+	if ( ! $wp_customize || ! $wp_customize->is_preview() ) {
 		wp_send_json_error( 'not_preview' );
 	}
 
@@ -610,7 +617,7 @@ function import_theme_modifications() {
 	}
 
 	// Verify we're in customizer preview.
-	if ( ! $wp_customize->is_preview() ) {
+	if ( ! $wp_customize || ! $wp_customize->is_preview() ) {
 		wp_send_json_error( 'not_preview' );
 	}
 
@@ -731,7 +738,7 @@ function restore_backup() {
 	}
 
 	// Verify we're in customizer preview.
-	if ( ! $wp_customize->is_preview() ) {
+	if ( ! $wp_customize || ! $wp_customize->is_preview() ) {
 		wp_send_json_error( 'not_preview' );
 	}
 
@@ -790,7 +797,7 @@ function delete_backup() {
 	}
 
 	// Verify we're in customizer preview.
-	if ( ! $wp_customize->is_preview() ) {
+	if ( ! $wp_customize || ! $wp_customize->is_preview() ) {
 		wp_send_json_error( 'not_preview' );
 	}
 
@@ -836,7 +843,7 @@ function delete_all_backups() {
 	}
 
 	// Verify we're in customizer preview.
-	if ( ! $wp_customize->is_preview() ) {
+	if ( ! $wp_customize || ! $wp_customize->is_preview() ) {
 		wp_send_json_error( 'not_preview' );
 	}
 
@@ -894,7 +901,7 @@ function remove_theme_modifications() {
 	}
 
 	// Bail early if we are not in preview mode.
-	if ( ! $wp_customize->is_preview() ) {
+	if ( ! $wp_customize || ! $wp_customize->is_preview() ) {
 		wp_send_json_error( 'not_preview' );
 	}
 

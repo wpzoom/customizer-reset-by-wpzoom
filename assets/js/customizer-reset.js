@@ -72,6 +72,12 @@ jQuery(function ($) {
         handleDeleteAllBackups();
     });
 
+    // Handle create backup button (without reset)
+    $(document).on('click', '.zoom-create-backup', function(e) {
+        e.preventDefault();
+        handleCreateBackup();
+    });
+
     // Handle file selection
     var fromDropzone = false;
     $fileInput.on('change', function() {
@@ -412,6 +418,29 @@ jQuery(function ($) {
             }
         }).fail(function() {
             showNotification('error', 'Reset failed: Network error');
+        });
+    }
+
+    // Create backup only (without reset)
+    function handleCreateBackup() {
+        showNotification('info', 'Creating backup...');
+
+        $.post(ajaxurl, {
+            wp_customize: 'on',
+            action: 'customizer_backup',
+            nonce: _ZoomCustomizerReset.nonce.backup
+        }, function (response) {
+            if (response.success) {
+                showNotification('success', 'Backup created successfully! Reloading...', 2000);
+
+                setTimeout(function() {
+                    location.reload();
+                }, 1000);
+            } else {
+                showNotification('error', 'Backup failed: ' + (response.data || 'Unknown error'));
+            }
+        }).fail(function() {
+            showNotification('error', 'Backup failed: Network error');
         });
     }
 
