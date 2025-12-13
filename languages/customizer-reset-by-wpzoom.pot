@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Customizer Reset\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-19 09:21+0000\n"
+"POT-Creation-Date: 2025-12-13 12:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -17,26 +17,26 @@ msgstr ""
 "X-Domain: customizer-reset-by-wpzoom"
 
 #. %d: number of backups deleted
-#: customizer-reset.php:862
+#: customizer-reset.php:880
 msgid "%d backups deleted successfully"
 msgstr ""
 
 #. %d: number of settings
-#: customizer-reset.php:153
+#: customizer-reset.php:171
 msgid "%d setting"
 msgid_plural "%d settings"
 msgstr[0] ""
 msgstr[1] ""
 
-#: customizer-reset.php:104
+#: customizer-reset.php:115
 msgid ".json or .dat file"
 msgstr ""
 
-#: customizer-reset.php:84
+#: customizer-reset.php:95
 msgid "Also remove Additional CSS"
 msgstr ""
 
-#: customizer-reset.php:257
+#: customizer-reset.php:275
 msgid ""
 "Attention!\n"
 "\n"
@@ -45,60 +45,64 @@ msgid ""
 "This action is irreversible unless you create a backup first."
 msgstr ""
 
-#: customizer-reset.php:255
+#: customizer-reset.php:273
 msgid "Backup & Reset"
 msgstr ""
 
-#: customizer-reset.php:74
+#: customizer-reset.php:85
 msgid "Backup & Reset Customizer"
 msgstr ""
 
-#: customizer-reset.php:450
+#: customizer-reset.php:468
 msgid "Backup created successfully"
 msgstr ""
 
-#: customizer-reset.php:804
+#: customizer-reset.php:822
 msgid "Backup deleted successfully"
 msgstr ""
 
-#: customizer-reset.php:132
+#: customizer-reset.php:143
 msgid "Backup History"
 msgstr ""
 
-#: customizer-reset.php:760
+#: customizer-reset.php:778
 msgid "Backup restored successfully"
 msgstr ""
 
+#: customizer-reset.php:150
+msgid "Create Backup"
+msgstr ""
+
 #. Name of the plugin
-#: customizer-reset.php:30
+#: customizer-reset.php:41
 msgid "Customizer Backup & Reset"
 msgstr ""
 
-#: customizer-reset.php:123
+#: customizer-reset.php:134
 msgid "DAT"
 msgstr ""
 
-#: customizer-reset.php:140
-msgid "Delete All Backups"
+#: customizer-reset.php:155
+msgid "Delete All"
 msgstr ""
 
-#: customizer-reset.php:109
+#: customizer-reset.php:120
 msgid "Download and import image files?"
 msgstr ""
 
-#: customizer-reset.php:93
+#: customizer-reset.php:104
 msgid "Export Customizer Settings"
 msgstr ""
 
-#: customizer-reset.php:114
+#: customizer-reset.php:125
 msgid "Export Format:"
 msgstr ""
 
-#: customizer-reset.php:253
+#: customizer-reset.php:271
 msgid "Export Settings"
 msgstr ""
 
-#: customizer-reset.php:259
+#: customizer-reset.php:277
 msgid "Exporting..."
 msgstr ""
 
@@ -110,52 +114,52 @@ msgstr ""
 msgid "https://www.wpzoom.com/"
 msgstr ""
 
-#: customizer-reset.php:89
+#: customizer-reset.php:100
 msgid "Import & Export"
 msgstr ""
 
-#: customizer-reset.php:98
+#: customizer-reset.php:109
 msgid "Import Customizer Settings"
 msgstr ""
 
-#: customizer-reset.php:254
+#: customizer-reset.php:272
 msgid "Import Settings"
 msgstr ""
 
-#: customizer-reset.php:260
+#: customizer-reset.php:278
 msgid "Importing..."
 msgstr ""
 
-#: customizer-reset.php:118
+#: customizer-reset.php:129
 msgid "JSON"
 msgstr ""
 
-#: customizer-reset.php:172
+#: customizer-reset.php:190
 msgid ""
 "No backups found. Use \"Backup & Reset\" to create a backup before resetting."
 msgstr ""
 
-#: customizer-reset.php:103
+#: customizer-reset.php:114
 msgid "Or drag and drop a file here"
 msgstr ""
 
-#: customizer-reset.php:119
+#: customizer-reset.php:130
 msgid "recommended"
 msgstr ""
 
-#: customizer-reset.php:252
+#: customizer-reset.php:270
 msgid "Reset"
 msgstr ""
 
-#: customizer-reset.php:256
+#: customizer-reset.php:274
 msgid "Reset (No Backup)"
 msgstr ""
 
-#: customizer-reset.php:70
+#: customizer-reset.php:81
 msgid "Reset Customizer"
 msgstr ""
 
-#: customizer-reset.php:79
+#: customizer-reset.php:90
 msgid "Reset Customizer (No Backup)"
 msgstr ""
 
@@ -165,23 +169,23 @@ msgid ""
 "backup and export features"
 msgstr ""
 
-#: customizer-reset.php:258
+#: customizer-reset.php:276
 msgid "Resetting..."
 msgstr ""
 
-#: customizer-reset.php:161
+#: customizer-reset.php:179
 msgid "Restore"
 msgstr ""
 
-#: customizer-reset.php:261
+#: customizer-reset.php:279
 msgid "Restoring..."
 msgstr ""
 
-#: customizer-reset.php:701
+#: customizer-reset.php:719
 msgid "Settings imported successfully"
 msgstr ""
 
-#: customizer-reset.php:210
+#: customizer-reset.php:228
 msgid "Unknown date"
 msgstr ""
 
