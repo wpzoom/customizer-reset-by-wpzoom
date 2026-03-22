@@ -9,12 +9,7 @@ jQuery(function ($) {
             'aria-label': 'Customizer Reset Tools',
             'title': 'Reset, Backup, Import & Export'
         })
-        .html('<span class="dashicons dashicons-admin-generic"></span> Reset')
-        .css({
-            'float': 'right',
-            'margin-right': '10px',
-            'margin-top': '9px'
-        });
+        .html('<span class="dashicons dashicons-admin-generic"></span> Reset');
 
     // Append button to header
     $container.append($gearButton);
@@ -48,6 +43,9 @@ jQuery(function ($) {
                 break;
             case 'reset':
                 handleReset();
+                break;
+            case 'cleanup-inactive':
+                handleCleanupInactive();
                 break;
         }
     });
@@ -575,6 +573,34 @@ jQuery(function ($) {
                 wp.customize.notifications.remove(deletingNotificationId);
             }
             showNotification('error', 'Delete failed: Network error');
+        });
+    }
+
+    // Clean up inactive theme mods
+    function handleCleanupInactive() {
+        if (!confirm('Remove all old settings from other themes?\n\nThis will delete customizer settings stored for previously active themes, including shared WPZOOM theme options. This prevents old colors, fonts, and other settings from reappearing when switching themes.')) {
+            return;
+        }
+
+        showNotification('info', 'Cleaning up inactive theme mods...');
+
+        $.post(ajaxurl, {
+            wp_customize: 'on',
+            action: 'customizer_cleanup_inactive',
+            nonce: _ZoomCustomizerReset.nonce.cleanupInactive
+        }, function (response) {
+            if (response.success) {
+                showNotification('success', response.data.message || 'Inactive theme mods removed!');
+
+                // Remove the inactive mods section from UI
+                $('.zoom-inactive-mods').fadeOut(300, function() {
+                    $(this).remove();
+                });
+            } else {
+                showNotification('error', 'Cleanup failed: ' + (response.data || 'Unknown error'));
+            }
+        }).fail(function() {
+            showNotification('error', 'Cleanup failed: Network error');
         });
     }
 

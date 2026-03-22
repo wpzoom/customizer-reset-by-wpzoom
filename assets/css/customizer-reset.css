@@ -4,14 +4,19 @@
 .zoom-reset-settings {
     float: right;
     margin-right: 10px;
-    margin-top: 9px;
+    margin-top: 9px !important;
+}
+
+/* WP 7.0+ uses admin-color-* body classes */
+body[class*="admin-color-"] .zoom-reset-settings {
+    margin-top: 3px !important;
 }
 
 .zoom-reset-settings .dashicons {
     margin-right: 4px;
-    vertical-align: middle;
+    vertical-align: middle !important;
     font-size: 16px;
-    line-height: 1;
+    line-height: 1 !important;
 }
 
 /* Section content */
@@ -57,14 +62,17 @@
 }
 
 .zoom-action-reset {
-    color: #d63638;
+    color: #d63638 !important;
+    background: #fff !important;
     margin-bottom: 0;
     border-color: #d63638 !important;
 }
 
 .zoom-action-reset:hover,
 .zoom-action-reset:focus {
-    color: #d63638;
+    color: #fff !important;
+    background: #d63638 !important;
+    border-color: #d63638 !important;
 }
 
 /* Export/Import buttons spacing */
@@ -156,6 +164,80 @@
 
 .zoom-reset-css-option input[type="checkbox"] {
     margin-right: 6px;
+}
+
+/* Inactive theme mods section */
+.zoom-inactive-mods {
+    margin: 12px 0 0;
+    padding: 12px;
+    background: #fcf9e8;
+    border: 1px solid #dba617;
+    border-radius: 4px;
+}
+
+.zoom-inactive-mods-notice {
+    margin: 0 0 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #6e4e00;
+}
+
+.zoom-inactive-mods-notice .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
+    margin-right: 4px;
+    color: #dba617;
+}
+
+.zoom-inactive-mods > .description {
+    margin: 0 0 8px;
+    font-size: 12px;
+    color: #6e4e00;
+}
+
+.zoom-inactive-mods-details {
+    margin: 0 0 10px;
+    font-size: 12px;
+}
+
+.zoom-inactive-mods-details summary {
+    cursor: pointer;
+    color: #2271b1;
+    font-size: 12px;
+}
+
+.zoom-inactive-mods-details summary:hover {
+    color: #135e96;
+}
+
+.zoom-inactive-mods-list {
+    margin: 6px 0 0 16px !important;
+    padding: 0;
+    font-size: 12px;
+}
+
+.zoom-inactive-mods-list li {
+    margin-bottom: 4px;
+    color: #1d2327;
+}
+
+.zoom-inactive-mods-list .description {
+    color: #646970;
+}
+
+.zoom-cleanup-inactive {
+    display: block;
+    width: 100%;
+    text-align: left;
+}
+
+.zoom-cleanup-inactive .dashicons {
+    margin-right: 4px;
+    vertical-align: middle;
+    font-size: 16px;
+    line-height: 1;
 }
 
 /* Import images option */

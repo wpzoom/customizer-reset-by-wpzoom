@@ -5,8 +5,8 @@ Author URI: https://www.wpzoom.com/
 Tags: customizer, customizer reset, backup, export, import
 Requires PHP: 7.4
 Requires at least: 6.4
-Tested up to: 6.9
-Stable tag: 2.0.3
+Tested up to: 7.0
+Stable tag: 2.1.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -73,6 +73,12 @@ https://www.wpzoom.com
 1. Reset along with Save button in WordPress Customizer panel.
 
 == Changelog ==
+
+= 2.1.0 =
+* NEW: Clean up inactive theme mods - Detects and removes old customizer settings from previously active themes that can cause colors, fonts, and other options to reappear when switching themes
+* NEW: WPZOOM theme compatibility - Resets shared wpzoom_* customizer options that persist across WPZOOM theme switches (Theme Options panel settings are preserved)
+* Improved reset to remove all stale theme_mods including those from demo imports, while preserving menus, widgets, logo, and sidebars
+* Compatibility with WordPress 7.0
 
 = 2.0.3 =
 * NEW: Added "Create Backup" button to save backups without resetting
