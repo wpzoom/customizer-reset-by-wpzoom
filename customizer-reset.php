@@ -3,7 +3,7 @@
  * Plugin Name: Customizer Backup & Reset
  * Plugin URI: http://wordpress.org/plugins/customizer-reset/
  * Description: Reset theme customizations (theme_mods) made via WordPress Customizer with backup and export features
- * Version: 2.1.0
+ * Version: 2.2.0
  * Author: WPZOOM
  * Author URI: https://www.wpzoom.com/
  * Text Domain: customizer-reset-by-wpzoom
@@ -367,6 +367,77 @@ function enqueue_scripts() {
 	);
 }
 
+/**
+ * Collect option-type settings from the Customizer API.
+ *
+ * Returns each setting keyed by its full Customizer ID (including bracket
+ * notation like astra-settings[key]) with the current value. This format
+ * is compatible with WP_Customize_Setting::update() for proper restore.
+ *
+ * @param WP_Customize_Manager $wp_customize Customizer manager instance.
+ * @return array Setting ID => value pairs.
+ * @since 2.2.0
+ */
+function collect_option_settings( $wp_customize ) {
+	$options      = array();
+	$core_options = array( 'blogname', 'blogdescription', 'show_on_front', 'page_on_front', 'page_for_posts' );
+
+	foreach ( $wp_customize->settings() as $key => $setting ) {
+		if ( 'option' !== $setting->type ) {
+			continue;
+		}
+		if ( 'widget_' === substr( strtolower( $key ), 0, 7 ) ) {
+			continue;
+		}
+		if ( 'sidebars_' === substr( strtolower( $key ), 0, 9 ) ) {
+			continue;
+		}
+		if ( in_array( $key, $core_options, true ) ) {
+			continue;
+		}
+
+		$options[ $key ] = $setting->value();
+	}
+
+	return $options;
+}
+
+/**
+ * Restore option-type settings using WP_Customize_Setting::update().
+ *
+ * Handles both bracket-notation keys (e.g. astra-settings[key]) and
+ * plain option names correctly via the WordPress Customizer API.
+ *
+ * WP_Customize_Setting::update() is protected, so we extend the class
+ * (same pattern as Customizer Export/Import's CEI_Option). The class is
+ * declared inside this function so WP_Customize_Setting is already loaded.
+ *
+ * @param WP_Customize_Manager $wp_customize Customizer manager instance.
+ * @param array                $options      Setting ID => value pairs.
+ * @return int Number of options restored.
+ * @since 2.2.0
+ */
+function restore_option_settings( $wp_customize, $options ) {
+	$count = 0;
+
+	foreach ( $options as $option_key => $option_value ) {
+		$setting = new class( $wp_customize, $option_key, array(
+			'default'    => '',
+			'type'       => 'option',
+			'capability' => 'edit_theme_options',
+		) ) extends \WP_Customize_Setting {
+			/** @param mixed $value The option value to persist. */
+			public function import( $value ) {
+				$this->update( $value );
+			}
+		};
+		$setting->import( $option_value );
+		++$count;
+	}
+
+	return $count;
+}
+
 add_action( 'wp_ajax_customizer_export', __NAMESPACE__ . '\export_theme_modifications' );
 /**
  * Export theme modifications in JSON or DAT format.
@@ -402,7 +473,8 @@ function export_theme_modifications() {
  * @since 1.2.0
  */
 function export_as_json() {
-	// Get all theme modifications.
+	global $wp_customize;
+
 	$theme_mods = get_theme_mods();
 	$theme      = wp_get_theme();
 
@@ -413,11 +485,18 @@ function export_as_json() {
 		'template'   => get_template(),
 		'exported'   => current_time( 'mysql' ),
 		'mods'       => $theme_mods,
+		'options'    => $wp_customize ? collect_option_settings( $wp_customize ) : array(),
 	);
 
-	// Include Additional CSS in JSON export if available.
 	if ( function_exists( 'wp_get_custom_css' ) ) {
 		$export_data['wp_css'] = wp_get_custom_css();
+	}
+
+	// Debug: if $wp_customize is null, log it so we can diagnose.
+	if ( ! $wp_customize ) {
+		$export_data['_debug'] = 'wp_customize_not_available';
+	} elseif ( empty( $export_data['options'] ) ) {
+		$export_data['_debug'] = 'settings_count_' . count( $wp_customize->settings() );
 	}
 
 	wp_send_json_success( $export_data );
@@ -438,39 +517,11 @@ function export_as_dat() {
 	$charset    = get_option( 'blog_charset' );
 	$mods       = get_theme_mods();
 
-	// Build data structure matching Customizer Export/Import plugin.
 	$data = array(
 		'template' => $template,
 		'mods'     => $mods ? $mods : array(),
-		'options'  => array(),
+		'options'  => $wp_customize ? collect_option_settings( $wp_customize ) : array(),
 	);
-
-	// Get options from the Customizer API (matching their approach).
-	if ( $wp_customize ) {
-		$settings = $wp_customize->settings();
-
-		foreach ( $settings as $key => $setting ) {
-			if ( 'option' === $setting->type ) {
-				// Don't save widget data.
-				if ( 'widget_' === substr( strtolower( $key ), 0, 7 ) ) {
-					continue;
-				}
-
-				// Don't save sidebar data.
-				if ( 'sidebars_' === substr( strtolower( $key ), 0, 9 ) ) {
-					continue;
-				}
-
-				// Don't save core options.
-				$core_options = array( 'blogname', 'blogdescription', 'show_on_front', 'page_on_front', 'page_for_posts' );
-				if ( in_array( $key, $core_options, true ) ) {
-					continue;
-				}
-
-				$data['options'][ $key ] = $setting->value();
-			}
-		}
-	}
 
 	// Allow plugin/theme developers to specify additional option keys to export.
 	$custom_option_keys = apply_filters( 'customizer_reset_export_option_keys', array() );
@@ -519,12 +570,41 @@ function backup_theme_modifications() {
 	$theme_mods = get_theme_mods();
 	$theme      = wp_get_theme();
 
+	// Collect option-type settings registered via the Customizer API.
+	// We snapshot the full top-level option (e.g. the entire generate_settings
+	// array) so update_option() can restore it in a single write.
+	$options      = array();
+	$core_options = array( 'blogname', 'blogdescription', 'show_on_front', 'page_on_front', 'page_for_posts' );
+
+	foreach ( $wp_customize->settings() as $key => $setting ) {
+		if ( 'option' !== $setting->type ) {
+			continue;
+		}
+		if ( 'widget_' === substr( strtolower( $key ), 0, 7 ) ) {
+			continue;
+		}
+		if ( 'sidebars_' === substr( strtolower( $key ), 0, 9 ) ) {
+			continue;
+		}
+
+		$bracket_pos = strpos( $key, '[' );
+		$option_name = false !== $bracket_pos ? substr( $key, 0, $bracket_pos ) : $key;
+
+		if ( in_array( $option_name, $core_options, true ) ) {
+			continue;
+		}
+		if ( ! array_key_exists( $option_name, $options ) ) {
+			$options[ $option_name ] = get_option( $option_name );
+		}
+	}
+
 	$backup_data = array(
 		'theme'      => $theme->get( 'Name' ),
 		'version'    => $theme->get( 'Version' ),
 		'stylesheet' => get_stylesheet(),
 		'created'    => current_time( 'mysql' ),
 		'mods'       => $theme_mods,
+		'options'    => $options,
 	);
 
 	// Include Additional CSS in backup if available.
@@ -542,7 +622,7 @@ function backup_theme_modifications() {
 	wp_send_json_success(
 		array(
 			'message' => __( 'Backup created successfully', 'customizer-reset-by-wpzoom' ),
-			'count'   => count( $theme_mods ),
+			'count'   => count( $theme_mods ) + count( $options ),
 		)
 	);
 }
@@ -769,17 +849,12 @@ function import_theme_modifications() {
 		$imported_count++;
 	}
 
-	// Import custom options if available (DAT format).
+	// Import option-type settings via WP_Customize_Setting::update() which
+	// properly handles bracket-notation keys (e.g. astra-settings[key]).
 	if ( isset( $import_data['options'] ) && is_array( $import_data['options'] ) ) {
-		foreach ( $import_data['options'] as $option_key => $option_value ) {
-			// Skip if it's a core WordPress option we shouldn't import.
-			$core_options = array( 'blogname', 'blogdescription', 'show_on_front', 'page_on_front', 'page_for_posts' );
-			if ( in_array( $option_key, $core_options, true ) ) {
-				continue;
-			}
-			// Update the option.
-			update_option( sanitize_key( $option_key ), $option_value );
-		}
+		$core_options = array( 'blogname', 'blogdescription', 'show_on_front', 'page_on_front', 'page_for_posts' );
+		$filtered     = array_diff_key( $import_data['options'], array_flip( $core_options ) );
+		$imported_count += restore_option_settings( $wp_customize, $filtered );
 	}
 
 	// Import custom CSS if available (DAT format).
@@ -842,6 +917,15 @@ function restore_backup() {
 	foreach ( $backup['mods'] as $key => $value ) {
 		set_theme_mod( $key, $value );
 		$restored_count++;
+	}
+
+	// Restore option-type settings. Each entry is a top-level option name
+	// (e.g. generate_settings, astra-settings) mapped to its full value.
+	if ( isset( $backup['options'] ) && is_array( $backup['options'] ) ) {
+		foreach ( $backup['options'] as $option_name => $option_value ) {
+			update_option( $option_name, $option_value );
+			++$restored_count;
+		}
 	}
 
 	// Restore Additional CSS if available in backup.
