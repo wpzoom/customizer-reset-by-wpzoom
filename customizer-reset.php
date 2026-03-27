@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Customizer Backup & Reset
  * Plugin URI: http://wordpress.org/plugins/customizer-reset/
- * Description: Reset theme customizations (theme_mods) made via WordPress Customizer with backup and export features
+ * Description: Reset Customizer settings (theme_mods and option-based) with backup, export, and import features
  * Version: 2.2.0
  * Author: WPZOOM
  * Author URI: https://www.wpzoom.com/
