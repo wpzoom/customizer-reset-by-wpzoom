@@ -207,6 +207,7 @@ jQuery(function ($) {
         showNotification('info', 'Exporting settings...');
 
         $.post(ajaxurl, {
+            wp_customize: 'on',
             action: 'customizer_export',
             nonce: _ZoomCustomizerReset.nonce.export,
             format: selectedFormat

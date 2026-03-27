@@ -6,7 +6,7 @@ Tags: customizer, customizer reset, backup, export, import
 Requires PHP: 7.4
 Requires at least: 6.4
 Tested up to: 7.0
-Stable tag: 2.1.0
+Stable tag: 2.2.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -18,7 +18,7 @@ Reset theme customizations made via WordPress Customizer with enhanced safety fe
 
 This plugin removes all theme modifications that are registered via Customizer API, with the added safety of backup, export, and import capabilities.
 
-Works with all themes and plugins that use **theme_mod** settings type for storing modifications.
+Works with themes that use **theme_mod** and Customizer **option** settings for storing modifications.
 
 > Please keep in mind that some themes uses different method to save customizer settings, [let us know](https://wordpress.org/support/plugin/customizer-reset-by-wpzoom/) if this plugin isn't compatible with your theme.
 
@@ -49,12 +49,15 @@ Looking to contribute code to this plugin? Go ahead and [fork the repository ove
 
 = What type of customizer settings are reset?
 
-Theme settings saved as `theme_mod` will be reset.
+Theme settings saved via the Customizer API are reset, including:
+
+1. `theme_mod` settings
+2. Option-based Customizer settings (for themes like Astra and GeneratePress)
 
 = Why did the plugin not reset a particular setting? =
 
 1. Setting is not registered correctly via Customizer API
-2. Setting is using option type for storing values
+2. Setting is stored outside the Customizer API (theme panel/framework options)
 
 = Is reset reversible? =
 
@@ -73,6 +76,11 @@ https://www.wpzoom.com
 1. Reset along with Save button in WordPress Customizer panel.
 
 == Changelog ==
+
+= 2.2.0 =
+* Improved backup/export/import compatibility for option-based Customizer settings (Astra, GeneratePress, and similar themes)
+* Fixed restore/import behavior for nested option arrays so backed up settings are restored more reliably
+* Updated JSON export data handling to better reflect Customizer option settings
 
 = 2.1.0 =
 * NEW: Clean up inactive theme mods - Detects and removes old customizer settings from previously active themes that can cause colors, fonts, and other options to reappear when switching themes
