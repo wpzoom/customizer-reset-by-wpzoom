@@ -370,10 +370,6 @@ function enqueue_scripts() {
 /**
  * Collect option-type settings from the Customizer API.
  *
- * Returns each setting keyed by its full Customizer ID (including bracket
- * notation like astra-settings[key]) with the current value. This format
- * is compatible with WP_Customize_Setting::update() for proper restore.
- *
  * @param WP_Customize_Manager $wp_customize Customizer manager instance.
  * @return array Setting ID => value pairs.
  * @since 2.2.0
@@ -404,13 +400,6 @@ function collect_option_settings( $wp_customize ) {
 
 /**
  * Restore option-type settings using WP_Customize_Setting::update().
- *
- * Handles both bracket-notation keys (e.g. astra-settings[key]) and
- * plain option names correctly via the WordPress Customizer API.
- *
- * WP_Customize_Setting::update() is protected, so we extend the class
- * (same pattern as Customizer Export/Import's CEI_Option). The class is
- * declared inside this function so WP_Customize_Setting is already loaded.
  *
  * @param WP_Customize_Manager $wp_customize Customizer manager instance.
  * @param array                $options      Setting ID => value pairs.
@@ -490,13 +479,6 @@ function export_as_json() {
 
 	if ( function_exists( 'wp_get_custom_css' ) ) {
 		$export_data['wp_css'] = wp_get_custom_css();
-	}
-
-	// Debug: if $wp_customize is null, log it so we can diagnose.
-	if ( ! $wp_customize ) {
-		$export_data['_debug'] = 'wp_customize_not_available';
-	} elseif ( empty( $export_data['options'] ) ) {
-		$export_data['_debug'] = 'settings_count_' . count( $wp_customize->settings() );
 	}
 
 	wp_send_json_success( $export_data );
