@@ -3,7 +3,7 @@
  * Plugin Name: Customizer Backup & Reset
  * Plugin URI: http://wordpress.org/plugins/customizer-reset/
  * Description: Reset Customizer settings (theme_mods and option-based) with backup, export, and import features
- * Version: 2.2.0
+ * Version: 2.2.1
  * Author: WPZOOM
  * Author URI: https://www.wpzoom.com/
  * Text Domain: customizer-reset-by-wpzoom
@@ -333,35 +333,33 @@ function enqueue_scripts() {
 	wp_enqueue_script(
 		'zoom-customizer-reset',
 		plugins_url( '/assets/js/customizer-reset.js', __FILE__ ),
-		array( 'jquery' ),
+		array( 'jquery', 'wp-i18n' ),
 		$version,
 		false
+	);
+
+	// Load translations for strings used inside the JavaScript file.
+	wp_set_script_translations(
+		'zoom-customizer-reset',
+		'customizer-reset-by-wpzoom',
+		plugin_dir_path( __FILE__ ) . 'languages'
 	);
 
 	wp_localize_script(
 		'zoom-customizer-reset',
 		'_ZoomCustomizerReset',
 		array(
-			'reset'       => __( 'Reset', 'customizer-reset-by-wpzoom' ),
-			'export'      => __( 'Export Settings', 'customizer-reset-by-wpzoom' ),
-			'import'      => __( 'Import Settings', 'customizer-reset-by-wpzoom' ),
-			'backup'      => __( 'Backup & Reset', 'customizer-reset-by-wpzoom' ),
-			'resetDirect' => __( 'Reset (No Backup)', 'customizer-reset-by-wpzoom' ),
-			'confirm'     => __( "Attention!\n\nThis will remove all customizations ever made via customizer to this theme.\n\nThis action is irreversible unless you create a backup first.", 'customizer-reset-by-wpzoom' ),
-			'resetting'   => __( 'Resetting...', 'customizer-reset-by-wpzoom' ),
-			'exporting'   => __( 'Exporting...', 'customizer-reset-by-wpzoom' ),
-			'importing'   => __( 'Importing...', 'customizer-reset-by-wpzoom' ),
-			'restoring'   => __( 'Restoring...', 'customizer-reset-by-wpzoom' ),
-			'hasBackup'   => get_transient( 'customizer_reset_backup_' . get_stylesheet() ) !== false,
-			'nonce'       => array(
-				'reset'      => wp_create_nonce( 'customizer-reset-by-wpzoom' ),
-				'export'     => wp_create_nonce( 'customizer-export' ),
-				'import'     => wp_create_nonce( 'customizer-import' ),
-				'backup'     => wp_create_nonce( 'customizer-backup' ),
-				'restore'    => wp_create_nonce( 'customizer-restore' ),
-				'delete'     => wp_create_nonce( 'customizer-delete-backup' ),
-				'deleteAll'        => wp_create_nonce( 'customizer-delete-all-backups' ),
-				'cleanupInactive'  => wp_create_nonce( 'customizer-cleanup-inactive' ),
+			'confirm'   => __( "Attention!\n\nThis will remove all customizations ever made via customizer to this theme.\n\nThis action is irreversible unless you create a backup first.", 'customizer-reset-by-wpzoom' ),
+			'hasBackup' => get_transient( 'customizer_reset_backup_' . get_stylesheet() ) !== false,
+			'nonce'     => array(
+				'reset'           => wp_create_nonce( 'customizer-reset-by-wpzoom' ),
+				'export'          => wp_create_nonce( 'customizer-export' ),
+				'import'          => wp_create_nonce( 'customizer-import' ),
+				'backup'          => wp_create_nonce( 'customizer-backup' ),
+				'restore'         => wp_create_nonce( 'customizer-restore' ),
+				'delete'          => wp_create_nonce( 'customizer-delete-backup' ),
+				'deleteAll'       => wp_create_nonce( 'customizer-delete-all-backups' ),
+				'cleanupInactive' => wp_create_nonce( 'customizer-cleanup-inactive' ),
 			),
 		)
 	);

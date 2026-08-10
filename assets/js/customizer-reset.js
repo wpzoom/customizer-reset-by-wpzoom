@@ -1,15 +1,18 @@
 /* global jQuery, _ZoomCustomizerReset, ajaxurl, wp */
 
 jQuery(function ($) {
+    var __ = wp.i18n.__;
+    var sprintf = wp.i18n.sprintf;
+
     var $container = $('#customize-header-actions');
 
     // Create reset tools button (matches WordPress Publish button style)
     var $gearButton = $('<button type="button" class="button button-primary zoom-reset-settings">')
         .attr({
-            'aria-label': 'Customizer Reset Tools',
-            'title': 'Reset, Backup, Import & Export'
+            'aria-label': __('Customizer Reset Tools', 'customizer-reset-by-wpzoom'),
+            'title': __('Reset, Backup, Import & Export', 'customizer-reset-by-wpzoom')
         })
-        .html('<span class="dashicons dashicons-admin-generic"></span> Reset');
+        .html('<span class="dashicons dashicons-admin-generic"></span> ' + __('Reset', 'customizer-reset-by-wpzoom'));
 
     // Append button to header
     $container.append($gearButton);
@@ -86,7 +89,7 @@ jQuery(function ($) {
             if (fromDropzone) {
                 // Validate file type
                 if (!file.name.match(/\.(json|dat)$/i)) {
-                    showNotification('error', 'Please select a JSON or DAT file');
+                    showNotification('error', __('Please select a JSON or DAT file', 'customizer-reset-by-wpzoom'));
                     fromDropzone = false;
                     return;
                 }
@@ -142,7 +145,7 @@ jQuery(function ($) {
 
             // Validate file type
             if (!file.name.match(/\.(json|dat)$/i)) {
-                showNotification('error', 'Please select a JSON or DAT file');
+                showNotification('error', __('Please select a JSON or DAT file', 'customizer-reset-by-wpzoom'));
                 return;
             }
 
@@ -159,13 +162,13 @@ jQuery(function ($) {
         // Update dropzone content to show file info and confirm button
         $dropzone.html(
             '<span class="dashicons dashicons-yes-alt" style="color: #00a32a;"></span>' +
-            '<p><strong>File ready to import:</strong></p>' +
-            '<p class="description" style="margin-bottom: 12px;">' + file.name + '</p>' +
+            '<p><strong>' + __('File ready to import:', 'customizer-reset-by-wpzoom') + '</strong></p>' +
+            '<p class="description" style="margin-bottom: 12px;">' + $('<div>').text(file.name).html() + '</p>' +
             '<button type="button" class="button button-primary zoom-confirm-import">' +
-            '<span class="dashicons dashicons-upload"></span> Import this file' +
+            '<span class="dashicons dashicons-upload"></span> ' + __('Import this file', 'customizer-reset-by-wpzoom') +
             '</button>' +
             '<button type="button" class="button zoom-cancel-import">' +
-            'Cancel' +
+            __('Cancel', 'customizer-reset-by-wpzoom') +
             '</button>'
         );
     }
@@ -194,8 +197,8 @@ jQuery(function ($) {
         var $dropzone = $('.zoom-import-dropzone');
         $dropzone.html(
             '<span class="dashicons dashicons-upload"></span>' +
-            '<p>Or drag and drop a file here</p>' +
-            '<span class="description">.json or .dat file</span>'
+            '<p>' + __('Or drag and drop a file here', 'customizer-reset-by-wpzoom') + '</p>' +
+            '<span class="description">' + __('.json or .dat file', 'customizer-reset-by-wpzoom') + '</span>'
         );
     }
 
@@ -204,7 +207,7 @@ jQuery(function ($) {
         // Get selected format
         var selectedFormat = $('input[name="zoom-export-format"]:checked').val() || 'json';
 
-        showNotification('info', 'Exporting settings...');
+        showNotification('info', __('Exporting settings...', 'customizer-reset-by-wpzoom'));
 
         $.post(ajaxurl, {
             wp_customize: 'on',
@@ -235,12 +238,20 @@ jQuery(function ($) {
                 document.body.removeChild(link);
                 URL.revokeObjectURL(url);
 
-                showNotification('success', 'Settings exported successfully!', 3000);
+                showNotification('success', __('Settings exported successfully!', 'customizer-reset-by-wpzoom'), 3000);
             } else {
-                showNotification('error', 'Export failed: ' + (response.data || 'Unknown error'));
+                showNotification('error', sprintf(
+                    /* translators: %s: error message returned by the server. */
+                    __('Export failed: %s', 'customizer-reset-by-wpzoom'),
+                    response.data || __('Unknown error', 'customizer-reset-by-wpzoom')
+                ));
             }
         }).fail(function() {
-            showNotification('error', 'Export failed: Network error');
+            showNotification('error', sprintf(
+                /* translators: %s: error message returned by the server. */
+                __('Export failed: %s', 'customizer-reset-by-wpzoom'),
+                __('Network error', 'customizer-reset-by-wpzoom')
+            ));
         });
     }
 
@@ -261,7 +272,7 @@ jQuery(function ($) {
     function handleImportFile(file) {
         // Accept both .json and .dat files
         if (!file.name.match(/\.(json|dat)$/i)) {
-            showNotification('error', 'Please select a JSON or DAT file');
+            showNotification('error', __('Please select a JSON or DAT file', 'customizer-reset-by-wpzoom'));
             return;
         }
 
@@ -291,19 +302,22 @@ jQuery(function ($) {
 
                 // Validate data structure (skip for raw DAT)
                 if (!data.is_dat && (!data.mods || !data.stylesheet)) {
-                    showNotification('error', 'Invalid file format');
+                    showNotification('error', __('Invalid file format', 'customizer-reset-by-wpzoom'));
                     return;
                 }
 
-                var confirmMsg = 'Import settings from "' + (data.theme || data.template || 'Unknown') + '"?\n\n' +
-                                'This will replace your current customizer settings.\n' +
-                                'Created: ' + (data.exported || data.created || 'Unknown');
+                var confirmMsg = sprintf(
+                    /* translators: 1: theme name the settings were exported from, 2: date the file was created. */
+                    __('Import settings from "%1$s"?\n\nThis will replace your current customizer settings.\nCreated: %2$s', 'customizer-reset-by-wpzoom'),
+                    data.theme || data.template || __('Unknown', 'customizer-reset-by-wpzoom'),
+                    data.exported || data.created || __('Unknown', 'customizer-reset-by-wpzoom')
+                );
 
                 if (!confirm(confirmMsg)) {
                     return;
                 }
 
-                showNotification('info', 'Importing settings...');
+                showNotification('info', __('Importing settings...', 'customizer-reset-by-wpzoom'));
 
                 // Get checkbox state for image import
                 var importImages = $('#zoom-import-images-checkbox').is(':checked');
@@ -318,20 +332,32 @@ jQuery(function ($) {
                 }, function(response) {
                     if (response.success) {
                         wp.customize.state('saved').set(true);
-                        showNotification('success', 'Settings imported! Reloading customizer...');
+                        showNotification('success', __('Settings imported! Reloading customizer...', 'customizer-reset-by-wpzoom'));
 
                         setTimeout(function() {
                             location.reload();
                         }, 1000);
                     } else {
-                        showNotification('error', 'Import failed: ' + (response.data || 'Unknown error'));
+                        showNotification('error', sprintf(
+                            /* translators: %s: error message returned by the server. */
+                            __('Import failed: %s', 'customizer-reset-by-wpzoom'),
+                            response.data || __('Unknown error', 'customizer-reset-by-wpzoom')
+                        ));
                     }
                 }).fail(function() {
-                    showNotification('error', 'Import failed: Network error');
+                    showNotification('error', sprintf(
+                        /* translators: %s: error message returned by the server. */
+                        __('Import failed: %s', 'customizer-reset-by-wpzoom'),
+                        __('Network error', 'customizer-reset-by-wpzoom')
+                    ));
                 });
 
             } catch (err) {
-                showNotification('error', 'Invalid file: ' + err.message);
+                showNotification('error', sprintf(
+                    /* translators: %s: error message describing why the file could not be read. */
+                    __('Invalid file: %s', 'customizer-reset-by-wpzoom'),
+                    err.message
+                ));
             }
         };
         reader.readAsText(file);
@@ -343,7 +369,7 @@ jQuery(function ($) {
             return;
         }
 
-        showNotification('info', 'Creating backup...');
+        showNotification('info', __('Creating backup...', 'customizer-reset-by-wpzoom'));
 
         // Get checkbox state for CSS reset
         var resetCss = $('#zoom-reset-css-checkbox').is(':checked');
@@ -355,7 +381,7 @@ jQuery(function ($) {
             nonce: _ZoomCustomizerReset.nonce.backup
         }, function (backupResponse) {
             if (backupResponse.success) {
-                showNotification('info', 'Resetting...');
+                showNotification('info', __('Resetting...', 'customizer-reset-by-wpzoom'));
 
                 // Then perform reset
                 $.post(ajaxurl, {
@@ -366,20 +392,32 @@ jQuery(function ($) {
                 }, function (resetResponse) {
                     if (resetResponse.success) {
                         wp.customize.state('saved').set(true);
-                        showNotification('success', 'Backup created! Resetting customizer...');
+                        showNotification('success', __('Backup created! Resetting customizer...', 'customizer-reset-by-wpzoom'));
 
                         setTimeout(function() {
                             location.reload();
                         }, 1000);
                     } else {
-                        showNotification('error', 'Reset failed: ' + (resetResponse.data || 'Unknown error'));
+                        showNotification('error', sprintf(
+                            /* translators: %s: error message returned by the server. */
+                            __('Reset failed: %s', 'customizer-reset-by-wpzoom'),
+                            resetResponse.data || __('Unknown error', 'customizer-reset-by-wpzoom')
+                        ));
                     }
                 });
             } else {
-                showNotification('error', 'Backup failed: ' + (backupResponse.data || 'Unknown error'));
+                showNotification('error', sprintf(
+                    /* translators: %s: error message returned by the server. */
+                    __('Backup failed: %s', 'customizer-reset-by-wpzoom'),
+                    backupResponse.data || __('Unknown error', 'customizer-reset-by-wpzoom')
+                ));
             }
         }).fail(function() {
-            showNotification('error', 'Backup failed: Network error');
+            showNotification('error', sprintf(
+                /* translators: %s: error message returned by the server. */
+                __('Backup failed: %s', 'customizer-reset-by-wpzoom'),
+                __('Network error', 'customizer-reset-by-wpzoom')
+            ));
         });
     }
 
@@ -387,14 +425,14 @@ jQuery(function ($) {
     function handleReset() {
         var warningMessage = _ZoomCustomizerReset.confirm;
         if (!_ZoomCustomizerReset.hasBackup) {
-            warningMessage += '\n\nWARNING: No backup exists. Consider using "Backup & Reset" instead.';
+            warningMessage += '\n\n' + __('WARNING: No backup exists. Consider using "Backup & Reset" instead.', 'customizer-reset-by-wpzoom');
         }
 
         if (!confirm(warningMessage)) {
             return;
         }
 
-        showNotification('info', _ZoomCustomizerReset.resetting);
+        showNotification('info', __('Resetting...', 'customizer-reset-by-wpzoom'));
 
         // Get checkbox state for CSS reset
         var resetCss = $('#zoom-reset-css-checkbox').is(':checked');
@@ -407,22 +445,30 @@ jQuery(function ($) {
         }, function (response) {
             if (response.success) {
                 wp.customize.state('saved').set(true);
-                showNotification('success', 'Customizer reset successfully!');
+                showNotification('success', __('Customizer reset successfully!', 'customizer-reset-by-wpzoom'));
 
                 setTimeout(function() {
                     location.reload();
                 }, 1000);
             } else {
-                showNotification('error', 'Reset failed: ' + (response.data || 'Unknown error'));
+                showNotification('error', sprintf(
+                    /* translators: %s: error message returned by the server. */
+                    __('Reset failed: %s', 'customizer-reset-by-wpzoom'),
+                    response.data || __('Unknown error', 'customizer-reset-by-wpzoom')
+                ));
             }
         }).fail(function() {
-            showNotification('error', 'Reset failed: Network error');
+            showNotification('error', sprintf(
+                /* translators: %s: error message returned by the server. */
+                __('Reset failed: %s', 'customizer-reset-by-wpzoom'),
+                __('Network error', 'customizer-reset-by-wpzoom')
+            ));
         });
     }
 
     // Create backup only (without reset)
     function handleCreateBackup() {
-        showNotification('info', 'Creating backup...');
+        showNotification('info', __('Creating backup...', 'customizer-reset-by-wpzoom'));
 
         $.post(ajaxurl, {
             wp_customize: 'on',
@@ -430,26 +476,34 @@ jQuery(function ($) {
             nonce: _ZoomCustomizerReset.nonce.backup
         }, function (response) {
             if (response.success) {
-                showNotification('success', 'Backup created successfully! Reloading...', 2000);
+                showNotification('success', __('Backup created successfully! Reloading...', 'customizer-reset-by-wpzoom'), 2000);
 
                 setTimeout(function() {
                     location.reload();
                 }, 1000);
             } else {
-                showNotification('error', 'Backup failed: ' + (response.data || 'Unknown error'));
+                showNotification('error', sprintf(
+                    /* translators: %s: error message returned by the server. */
+                    __('Backup failed: %s', 'customizer-reset-by-wpzoom'),
+                    response.data || __('Unknown error', 'customizer-reset-by-wpzoom')
+                ));
             }
         }).fail(function() {
-            showNotification('error', 'Backup failed: Network error');
+            showNotification('error', sprintf(
+                /* translators: %s: error message returned by the server. */
+                __('Backup failed: %s', 'customizer-reset-by-wpzoom'),
+                __('Network error', 'customizer-reset-by-wpzoom')
+            ));
         });
     }
 
     // Restore backup functionality
     function handleRestore(backupKey) {
-        if (!confirm('Restore this backup?\n\nThis will replace your current customizer settings with the backed up version.')) {
+        if (!confirm(__('Restore this backup?\n\nThis will replace your current customizer settings with the backed up version.', 'customizer-reset-by-wpzoom'))) {
             return;
         }
 
-        showNotification('info', _ZoomCustomizerReset.restoring);
+        showNotification('info', __('Restoring...', 'customizer-reset-by-wpzoom'));
 
         $.post(ajaxurl, {
             wp_customize: 'on',
@@ -459,22 +513,30 @@ jQuery(function ($) {
         }, function(response) {
             if (response.success) {
                 wp.customize.state('saved').set(true);
-                showNotification('success', 'Backup restored successfully!');
+                showNotification('success', __('Backup restored successfully!', 'customizer-reset-by-wpzoom'));
 
                 setTimeout(function() {
                     location.reload();
                 }, 1000);
             } else {
-                showNotification('error', 'Restore failed: ' + (response.data || 'Unknown error'));
+                showNotification('error', sprintf(
+                    /* translators: %s: error message returned by the server. */
+                    __('Restore failed: %s', 'customizer-reset-by-wpzoom'),
+                    response.data || __('Unknown error', 'customizer-reset-by-wpzoom')
+                ));
             }
         }).fail(function() {
-            showNotification('error', 'Restore failed: Network error');
+            showNotification('error', sprintf(
+                /* translators: %s: error message returned by the server. */
+                __('Restore failed: %s', 'customizer-reset-by-wpzoom'),
+                __('Network error', 'customizer-reset-by-wpzoom')
+            ));
         });
     }
 
     // Delete single backup functionality
     function handleDeleteBackup(backupKey) {
-        if (!confirm('Delete this backup?\n\nThis action cannot be undone.')) {
+        if (!confirm(__('Delete this backup?\n\nThis action cannot be undone.', 'customizer-reset-by-wpzoom'))) {
             return;
         }
 
@@ -484,7 +546,7 @@ jQuery(function ($) {
         if (wp.customize && wp.customize.notifications) {
             wp.customize.notifications.add(new wp.customize.Notification(deletingNotificationId, {
                 type: 'info',
-                message: 'Deleting backup...'
+                message: __('Deleting backup...', 'customizer-reset-by-wpzoom')
             }));
         }
 
@@ -500,7 +562,7 @@ jQuery(function ($) {
             }
 
             if (response.success) {
-                showNotification('success', 'Backup deleted successfully!', 3000);
+                showNotification('success', __('Backup deleted successfully!', 'customizer-reset-by-wpzoom'), 3000);
 
                 // Remove the backup item from UI
                 $('.zoom-backup-item[data-backup-key="' + backupKey + '"]').fadeOut(300, function() {
@@ -514,24 +576,34 @@ jQuery(function ($) {
                     if (remainingBackups === 0) {
                         $('.zoom-backup-list').remove();
                         $('.zoom-backup-actions').remove();
-                        $('.zoom-backup-history').append('<p class="description">No backups found. Use "Backup & Reset" to create a backup before resetting.</p>');
+                        $('.zoom-backup-history').append(
+                            $('<p class="description">').text(__('No backups found. Use "Backup & Reset" to create a backup before resetting.', 'customizer-reset-by-wpzoom'))
+                        );
                     }
                 });
             } else {
-                showNotification('error', 'Delete failed: ' + (response.data || 'Unknown error'));
+                showNotification('error', sprintf(
+                    /* translators: %s: error message returned by the server. */
+                    __('Delete failed: %s', 'customizer-reset-by-wpzoom'),
+                    response.data || __('Unknown error', 'customizer-reset-by-wpzoom')
+                ));
             }
         }).fail(function() {
             // Remove the deleting notification on error too
             if (wp.customize && wp.customize.notifications) {
                 wp.customize.notifications.remove(deletingNotificationId);
             }
-            showNotification('error', 'Delete failed: Network error');
+            showNotification('error', sprintf(
+                /* translators: %s: error message returned by the server. */
+                __('Delete failed: %s', 'customizer-reset-by-wpzoom'),
+                __('Network error', 'customizer-reset-by-wpzoom')
+            ));
         });
     }
 
     // Delete all backups functionality
     function handleDeleteAllBackups() {
-        if (!confirm('Delete ALL backups?\n\nThis will permanently delete all your backup history. This action cannot be undone.')) {
+        if (!confirm(__('Delete ALL backups?\n\nThis will permanently delete all your backup history. This action cannot be undone.', 'customizer-reset-by-wpzoom'))) {
             return;
         }
 
@@ -541,7 +613,7 @@ jQuery(function ($) {
         if (wp.customize && wp.customize.notifications) {
             wp.customize.notifications.add(new wp.customize.Notification(deletingNotificationId, {
                 type: 'info',
-                message: 'Deleting all backups...'
+                message: __('Deleting all backups...', 'customizer-reset-by-wpzoom')
             }));
         }
 
@@ -556,34 +628,44 @@ jQuery(function ($) {
             }
 
             if (response.success) {
-                showNotification('success', response.data.message || 'All backups deleted successfully!', 3000);
+                showNotification('success', response.data.message || __('All backups deleted successfully!', 'customizer-reset-by-wpzoom'), 3000);
 
                 // Remove all backup items from UI
                 $('.zoom-backup-list').fadeOut(300, function() {
                     $(this).remove();
                     $('.zoom-backup-actions').remove();
                     $('.zoom-backup-count').text('(0)');
-                    $('.zoom-backup-history').append('<p class="description">No backups found. Use "Backup & Reset" to create a backup before resetting.</p>');
+                    $('.zoom-backup-history').append(
+                        $('<p class="description">').text(__('No backups found. Use "Backup & Reset" to create a backup before resetting.', 'customizer-reset-by-wpzoom'))
+                    );
                 });
             } else {
-                showNotification('error', 'Delete failed: ' + (response.data || 'Unknown error'));
+                showNotification('error', sprintf(
+                    /* translators: %s: error message returned by the server. */
+                    __('Delete failed: %s', 'customizer-reset-by-wpzoom'),
+                    response.data || __('Unknown error', 'customizer-reset-by-wpzoom')
+                ));
             }
         }).fail(function() {
             // Remove the deleting notification on error too
             if (wp.customize && wp.customize.notifications) {
                 wp.customize.notifications.remove(deletingNotificationId);
             }
-            showNotification('error', 'Delete failed: Network error');
+            showNotification('error', sprintf(
+                /* translators: %s: error message returned by the server. */
+                __('Delete failed: %s', 'customizer-reset-by-wpzoom'),
+                __('Network error', 'customizer-reset-by-wpzoom')
+            ));
         });
     }
 
     // Clean up inactive theme mods
     function handleCleanupInactive() {
-        if (!confirm('Remove all old settings from other themes?\n\nThis will delete customizer settings stored for previously active themes, including shared WPZOOM theme options. This prevents old colors, fonts, and other settings from reappearing when switching themes.')) {
+        if (!confirm(__('Remove all old settings from other themes?\n\nThis will delete customizer settings stored for previously active themes, including shared WPZOOM theme options. This prevents old colors, fonts, and other settings from reappearing when switching themes.', 'customizer-reset-by-wpzoom'))) {
             return;
         }
 
-        showNotification('info', 'Cleaning up inactive theme mods...');
+        showNotification('info', __('Cleaning up inactive theme mods...', 'customizer-reset-by-wpzoom'));
 
         $.post(ajaxurl, {
             wp_customize: 'on',
@@ -591,17 +673,25 @@ jQuery(function ($) {
             nonce: _ZoomCustomizerReset.nonce.cleanupInactive
         }, function (response) {
             if (response.success) {
-                showNotification('success', response.data.message || 'Inactive theme mods removed!');
+                showNotification('success', response.data.message || __('Inactive theme mods removed!', 'customizer-reset-by-wpzoom'));
 
                 // Remove the inactive mods section from UI
                 $('.zoom-inactive-mods').fadeOut(300, function() {
                     $(this).remove();
                 });
             } else {
-                showNotification('error', 'Cleanup failed: ' + (response.data || 'Unknown error'));
+                showNotification('error', sprintf(
+                    /* translators: %s: error message returned by the server. */
+                    __('Cleanup failed: %s', 'customizer-reset-by-wpzoom'),
+                    response.data || __('Unknown error', 'customizer-reset-by-wpzoom')
+                ));
             }
         }).fail(function() {
-            showNotification('error', 'Cleanup failed: Network error');
+            showNotification('error', sprintf(
+                /* translators: %s: error message returned by the server. */
+                __('Cleanup failed: %s', 'customizer-reset-by-wpzoom'),
+                __('Network error', 'customizer-reset-by-wpzoom')
+            ));
         });
     }
 

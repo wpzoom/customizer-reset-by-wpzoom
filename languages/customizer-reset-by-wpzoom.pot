@@ -1,42 +1,173 @@
-#, fuzzy
+# Copyright (C) 2026 WPZOOM
+# This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Customizer Reset\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-13 12:31+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Project-Id-Version: Customizer Backup & Reset 2.2.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/customizer-reset-by-wpzoom\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: \n"
-"Language: \n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.8.0; wp-6.8.3; php-8.3.14\n"
-"X-Domain: customizer-reset-by-wpzoom"
+"POT-Creation-Date: 2026-08-10T10:35:34+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: customizer-reset-by-wpzoom\n"
 
-#. %d: number of backups deleted
-#: customizer-reset.php:880
-msgid "%d backups deleted successfully"
+#. Plugin Name of the plugin
+#: customizer-reset.php
+#: customizer-reset.php:41
+msgid "Customizer Backup & Reset"
 msgstr ""
 
-#. %d: number of settings
-#: customizer-reset.php:171
-msgid "%d setting"
-msgid_plural "%d settings"
-msgstr[0] ""
-msgstr[1] ""
+#. Plugin URI of the plugin
+#: customizer-reset.php
+msgid "http://wordpress.org/plugins/customizer-reset/"
+msgstr ""
 
-#: customizer-reset.php:115
-msgid ".json or .dat file"
+#. Description of the plugin
+#: customizer-reset.php
+msgid "Reset Customizer settings (theme_mods and option-based) with backup, export, and import features"
+msgstr ""
+
+#. Author of the plugin
+#: customizer-reset.php
+msgid "WPZOOM"
+msgstr ""
+
+#. Author URI of the plugin
+#: customizer-reset.php
+msgid "https://www.wpzoom.com/"
+msgstr ""
+
+#: customizer-reset.php:81
+msgid "Reset Customizer"
+msgstr ""
+
+#: customizer-reset.php:85
+msgid "Backup & Reset Customizer"
+msgstr ""
+
+#: customizer-reset.php:90
+msgid "Reset Customizer (No Backup)"
 msgstr ""
 
 #: customizer-reset.php:95
 msgid "Also remove Additional CSS"
 msgstr ""
 
-#: customizer-reset.php:275
+#. translators: %d: total number of old settings found
+#: customizer-reset.php:113
+#, php-format
+msgid "%d old setting detected from other themes"
+msgid_plural "%d old settings detected from other themes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: customizer-reset.php:124
+msgid "Old customizations from previously active themes are still stored in the database. These can cause settings like colors and fonts to reappear when switching themes."
+msgstr ""
+
+#: customizer-reset.php:127
+msgid "View inactive themes"
+msgstr ""
+
+#: customizer-reset.php:132
+msgid "WPZOOM customizer options"
+msgstr ""
+
+#. translators: %d: number of options
+#: customizer-reset.php:138
+#, php-format
+msgid "%d option"
+msgid_plural "%d options"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: number of settings
+#: customizer-reset.php:150
+#: customizer-reset.php:246
+#, php-format
+msgid "%d setting"
+msgid_plural "%d settings"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: total number of old settings
+#: customizer-reset.php:165
+#, php-format
+msgid "Clean Up %d Old Settings"
+msgstr ""
+
+#: customizer-reset.php:175
+msgid "Import & Export"
+msgstr ""
+
+#: customizer-reset.php:179
+msgid "Export Customizer Settings"
+msgstr ""
+
+#: customizer-reset.php:184
+msgid "Import Customizer Settings"
+msgstr ""
+
+#: customizer-reset.php:189
+#: assets/js/customizer-reset.js:200
+msgid "Or drag and drop a file here"
+msgstr ""
+
+#: customizer-reset.php:190
+#: assets/js/customizer-reset.js:201
+msgid ".json or .dat file"
+msgstr ""
+
+#: customizer-reset.php:195
+msgid "Download and import image files?"
+msgstr ""
+
+#: customizer-reset.php:200
+msgid "Export Format:"
+msgstr ""
+
+#: customizer-reset.php:204
+msgid "JSON"
+msgstr ""
+
+#: customizer-reset.php:205
+msgid "recommended"
+msgstr ""
+
+#: customizer-reset.php:209
+msgid "DAT"
+msgstr ""
+
+#: customizer-reset.php:218
+msgid "Backup History"
+msgstr ""
+
+#: customizer-reset.php:225
+msgid "Create Backup"
+msgstr ""
+
+#: customizer-reset.php:230
+msgid "Delete All"
+msgstr ""
+
+#: customizer-reset.php:254
+msgid "Restore"
+msgstr ""
+
+#: customizer-reset.php:265
+#: assets/js/customizer-reset.js:580
+#: assets/js/customizer-reset.js:639
+msgid "No backups found. Use \"Backup & Reset\" to create a backup before resetting."
+msgstr ""
+
+#: customizer-reset.php:303
+msgid "Unknown date"
+msgstr ""
+
+#: customizer-reset.php:352
 msgid ""
 "Attention!\n"
 "\n"
@@ -45,150 +176,268 @@ msgid ""
 "This action is irreversible unless you create a backup first."
 msgstr ""
 
-#: customizer-reset.php:273
-msgid "Backup & Reset"
-msgstr ""
-
-#: customizer-reset.php:85
-msgid "Backup & Reset Customizer"
-msgstr ""
-
-#: customizer-reset.php:468
+#: customizer-reset.php:604
 msgid "Backup created successfully"
 msgstr ""
 
-#: customizer-reset.php:822
-msgid "Backup deleted successfully"
-msgstr ""
-
-#: customizer-reset.php:143
-msgid "Backup History"
-msgstr ""
-
-#: customizer-reset.php:778
-msgid "Backup restored successfully"
-msgstr ""
-
-#: customizer-reset.php:150
-msgid "Create Backup"
-msgstr ""
-
-#. Name of the plugin
-#: customizer-reset.php:41
-msgid "Customizer Backup & Reset"
-msgstr ""
-
-#: customizer-reset.php:134
-msgid "DAT"
-msgstr ""
-
-#: customizer-reset.php:155
-msgid "Delete All"
-msgstr ""
-
-#: customizer-reset.php:120
-msgid "Download and import image files?"
-msgstr ""
-
-#: customizer-reset.php:104
-msgid "Export Customizer Settings"
-msgstr ""
-
-#: customizer-reset.php:125
-msgid "Export Format:"
-msgstr ""
-
-#: customizer-reset.php:271
-msgid "Export Settings"
-msgstr ""
-
-#: customizer-reset.php:277
-msgid "Exporting..."
-msgstr ""
-
-#. URI of the plugin
-msgid "http://wordpress.org/plugins/customizer-reset/"
-msgstr ""
-
-#. Author URI of the plugin
-msgid "https://www.wpzoom.com/"
-msgstr ""
-
-#: customizer-reset.php:100
-msgid "Import & Export"
-msgstr ""
-
-#: customizer-reset.php:109
-msgid "Import Customizer Settings"
-msgstr ""
-
-#: customizer-reset.php:272
-msgid "Import Settings"
-msgstr ""
-
-#: customizer-reset.php:278
-msgid "Importing..."
-msgstr ""
-
-#: customizer-reset.php:129
-msgid "JSON"
-msgstr ""
-
-#: customizer-reset.php:190
-msgid ""
-"No backups found. Use \"Backup & Reset\" to create a backup before resetting."
-msgstr ""
-
-#: customizer-reset.php:114
-msgid "Or drag and drop a file here"
-msgstr ""
-
-#: customizer-reset.php:130
-msgid "recommended"
-msgstr ""
-
-#: customizer-reset.php:270
-msgid "Reset"
-msgstr ""
-
-#: customizer-reset.php:274
-msgid "Reset (No Backup)"
-msgstr ""
-
-#: customizer-reset.php:81
-msgid "Reset Customizer"
-msgstr ""
-
-#: customizer-reset.php:90
-msgid "Reset Customizer (No Backup)"
-msgstr ""
-
-#. Description of the plugin
-msgid ""
-"Reset theme customizations (theme_mods) made via WordPress Customizer with "
-"backup and export features"
-msgstr ""
-
-#: customizer-reset.php:276
-msgid "Resetting..."
-msgstr ""
-
-#: customizer-reset.php:179
-msgid "Restore"
-msgstr ""
-
-#: customizer-reset.php:279
-msgid "Restoring..."
-msgstr ""
-
-#: customizer-reset.php:719
+#: customizer-reset.php:850
 msgid "Settings imported successfully"
 msgstr ""
 
-#: customizer-reset.php:228
-msgid "Unknown date"
+#: customizer-reset.php:918
+msgid "Backup restored successfully"
 msgstr ""
 
-#. Author of the plugin
-msgid "WPZOOM"
+#: customizer-reset.php:962
+msgid "Backup deleted successfully"
+msgstr ""
+
+#. translators: %d: number of backups deleted
+#: customizer-reset.php:1020
+#, php-format
+msgid "%d backups deleted successfully"
+msgstr ""
+
+#. translators: %d: number of inactive theme entries deleted
+#: customizer-reset.php:1361
+#, php-format
+msgid "%d inactive theme entry removed"
+msgid_plural "%d inactive theme entries removed"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/js/customizer-reset.js:12
+msgid "Customizer Reset Tools"
+msgstr ""
+
+#: assets/js/customizer-reset.js:13
+msgid "Reset, Backup, Import & Export"
+msgstr ""
+
+#: assets/js/customizer-reset.js:15
+msgid "Reset"
+msgstr ""
+
+#: assets/js/customizer-reset.js:92
+#: assets/js/customizer-reset.js:148
+#: assets/js/customizer-reset.js:275
+msgid "Please select a JSON or DAT file"
+msgstr ""
+
+#: assets/js/customizer-reset.js:165
+msgid "File ready to import:"
+msgstr ""
+
+#: assets/js/customizer-reset.js:168
+msgid "Import this file"
+msgstr ""
+
+#: assets/js/customizer-reset.js:171
+msgid "Cancel"
+msgstr ""
+
+#: assets/js/customizer-reset.js:210
+msgid "Exporting settings..."
+msgstr ""
+
+#: assets/js/customizer-reset.js:241
+msgid "Settings exported successfully!"
+msgstr ""
+
+#. translators: %s: error message returned by the server.
+#: assets/js/customizer-reset.js:245
+#: assets/js/customizer-reset.js:252
+#, js-format
+msgid "Export failed: %s"
+msgstr ""
+
+#: assets/js/customizer-reset.js:246
+#: assets/js/customizer-reset.js:344
+#: assets/js/customizer-reset.js:404
+#: assets/js/customizer-reset.js:412
+#: assets/js/customizer-reset.js:457
+#: assets/js/customizer-reset.js:488
+#: assets/js/customizer-reset.js:525
+#: assets/js/customizer-reset.js:588
+#: assets/js/customizer-reset.js:646
+#: assets/js/customizer-reset.js:686
+msgid "Unknown error"
+msgstr ""
+
+#: assets/js/customizer-reset.js:253
+#: assets/js/customizer-reset.js:351
+#: assets/js/customizer-reset.js:419
+#: assets/js/customizer-reset.js:464
+#: assets/js/customizer-reset.js:495
+#: assets/js/customizer-reset.js:532
+#: assets/js/customizer-reset.js:599
+#: assets/js/customizer-reset.js:657
+#: assets/js/customizer-reset.js:693
+msgid "Network error"
+msgstr ""
+
+#: assets/js/customizer-reset.js:305
+msgid "Invalid file format"
+msgstr ""
+
+#. translators: 1: theme name the settings were exported from, 2: date the file was created.
+#: assets/js/customizer-reset.js:311
+#, js-format
+msgid ""
+"Import settings from \"%1$s\"?\n"
+"\n"
+"This will replace your current customizer settings.\n"
+"Created: %2$s"
+msgstr ""
+
+#: assets/js/customizer-reset.js:312
+#: assets/js/customizer-reset.js:313
+msgid "Unknown"
+msgstr ""
+
+#: assets/js/customizer-reset.js:320
+msgid "Importing settings..."
+msgstr ""
+
+#: assets/js/customizer-reset.js:335
+msgid "Settings imported! Reloading customizer..."
+msgstr ""
+
+#. translators: %s: error message returned by the server.
+#: assets/js/customizer-reset.js:343
+#: assets/js/customizer-reset.js:350
+#, js-format
+msgid "Import failed: %s"
+msgstr ""
+
+#. translators: %s: error message describing why the file could not be read.
+#: assets/js/customizer-reset.js:358
+#, js-format
+msgid "Invalid file: %s"
+msgstr ""
+
+#: assets/js/customizer-reset.js:372
+#: assets/js/customizer-reset.js:471
+msgid "Creating backup..."
+msgstr ""
+
+#: assets/js/customizer-reset.js:384
+#: assets/js/customizer-reset.js:435
+msgid "Resetting..."
+msgstr ""
+
+#: assets/js/customizer-reset.js:395
+msgid "Backup created! Resetting customizer..."
+msgstr ""
+
+#. translators: %s: error message returned by the server.
+#: assets/js/customizer-reset.js:403
+#: assets/js/customizer-reset.js:456
+#: assets/js/customizer-reset.js:463
+#, js-format
+msgid "Reset failed: %s"
+msgstr ""
+
+#. translators: %s: error message returned by the server.
+#: assets/js/customizer-reset.js:411
+#: assets/js/customizer-reset.js:418
+#: assets/js/customizer-reset.js:487
+#: assets/js/customizer-reset.js:494
+#, js-format
+msgid "Backup failed: %s"
+msgstr ""
+
+#: assets/js/customizer-reset.js:428
+msgid "WARNING: No backup exists. Consider using \"Backup & Reset\" instead."
+msgstr ""
+
+#: assets/js/customizer-reset.js:448
+msgid "Customizer reset successfully!"
+msgstr ""
+
+#: assets/js/customizer-reset.js:479
+msgid "Backup created successfully! Reloading..."
+msgstr ""
+
+#: assets/js/customizer-reset.js:502
+msgid ""
+"Restore this backup?\n"
+"\n"
+"This will replace your current customizer settings with the backed up version."
+msgstr ""
+
+#: assets/js/customizer-reset.js:506
+msgid "Restoring..."
+msgstr ""
+
+#: assets/js/customizer-reset.js:516
+msgid "Backup restored successfully!"
+msgstr ""
+
+#. translators: %s: error message returned by the server.
+#: assets/js/customizer-reset.js:524
+#: assets/js/customizer-reset.js:531
+#, js-format
+msgid "Restore failed: %s"
+msgstr ""
+
+#: assets/js/customizer-reset.js:539
+msgid ""
+"Delete this backup?\n"
+"\n"
+"This action cannot be undone."
+msgstr ""
+
+#: assets/js/customizer-reset.js:549
+msgid "Deleting backup..."
+msgstr ""
+
+#: assets/js/customizer-reset.js:565
+msgid "Backup deleted successfully!"
+msgstr ""
+
+#. translators: %s: error message returned by the server.
+#: assets/js/customizer-reset.js:587
+#: assets/js/customizer-reset.js:598
+#: assets/js/customizer-reset.js:645
+#: assets/js/customizer-reset.js:656
+#, js-format
+msgid "Delete failed: %s"
+msgstr ""
+
+#: assets/js/customizer-reset.js:606
+msgid ""
+"Delete ALL backups?\n"
+"\n"
+"This will permanently delete all your backup history. This action cannot be undone."
+msgstr ""
+
+#: assets/js/customizer-reset.js:616
+msgid "Deleting all backups..."
+msgstr ""
+
+#: assets/js/customizer-reset.js:631
+msgid "All backups deleted successfully!"
+msgstr ""
+
+#: assets/js/customizer-reset.js:664
+msgid ""
+"Remove all old settings from other themes?\n"
+"\n"
+"This will delete customizer settings stored for previously active themes, including shared WPZOOM theme options. This prevents old colors, fonts, and other settings from reappearing when switching themes."
+msgstr ""
+
+#: assets/js/customizer-reset.js:668
+msgid "Cleaning up inactive theme mods..."
+msgstr ""
+
+#: assets/js/customizer-reset.js:676
+msgid "Inactive theme mods removed!"
+msgstr ""
+
+#. translators: %s: error message returned by the server.
+#: assets/js/customizer-reset.js:685
+#: assets/js/customizer-reset.js:692
+#, js-format
+msgid "Cleanup failed: %s"
 msgstr ""
