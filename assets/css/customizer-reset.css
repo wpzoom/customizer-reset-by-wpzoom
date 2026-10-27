@@ -49,15 +49,15 @@ body[class*="admin-color-"] .zoom-reset-settings {
 }
 
 .zoom-action-backup-reset {
-    background: #2271b1;
-    border-color: #2271b1;
+    background: var(--wp-admin-theme-color, #2271b1);
+    border-color: var(--wp-admin-theme-color, #2271b1);
     color: #fff;
 }
 
 .zoom-action-backup-reset:hover,
 .zoom-action-backup-reset:focus {
-    background: #135e96;
-    border-color: #135e96;
+    background: var(--wp-admin-theme-color-darker-10, #135e96);
+    border-color: var(--wp-admin-theme-color-darker-10, #135e96);
     color: #fff;
 }
 
@@ -128,12 +128,12 @@ body[class*="admin-color-"] .zoom-reset-settings {
 }
 
 .zoom-import-dropzone.drag-over {
-    background: #f0f6fc;
-    border-color: #2271b1;
+    background: color-mix(in srgb, var(--wp-admin-theme-color, #2271b1) 8%, #fff);
+    border-color: var(--wp-admin-theme-color, #2271b1);
 }
 
 .zoom-import-dropzone.drag-over .dashicons {
-    color: #2271b1;
+    color: var(--wp-admin-theme-color, #2271b1);
 }
 
 .zoom-import-dropzone .zoom-confirm-import {
@@ -204,12 +204,12 @@ body[class*="admin-color-"] .zoom-reset-settings {
 
 .zoom-inactive-mods-details summary {
     cursor: pointer;
-    color: #2271b1;
+    color: var(--wp-admin-theme-color, #2271b1);
     font-size: 12px;
 }
 
 .zoom-inactive-mods-details summary:hover {
-    color: #135e96;
+    color: var(--wp-admin-theme-color-darker-10, #135e96);
 }
 
 .zoom-inactive-mods-list {
